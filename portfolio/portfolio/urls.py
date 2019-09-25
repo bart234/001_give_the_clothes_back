@@ -20,7 +20,7 @@ from app_oddam.views import LandingPage, AddDonation, Login, Register
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', LandingPage.as_view()),
-        path('adddonation/', AddDonation.as_view()),
+    path('adddonation/', AddDonation.as_view()),
     path('login/', Login.as_view()),
     path('register/', Register.as_view(),)
 ]

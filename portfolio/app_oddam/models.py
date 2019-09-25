@@ -27,5 +27,5 @@ class Donation(models.Model):
     zip_code = models.CharField(max_length=6, null=False)
     pick_up_date = models.DateField(null=False)
     pick_up_time = models.TimeField(null=False)
-    pick_up_comment = models.CharField(max_length=120,null=True)
+    pick_up_comment = models.CharField(max_length=120, null=True)
     user = models.ForeignKey(User, on_delete=models.PROTECT)
