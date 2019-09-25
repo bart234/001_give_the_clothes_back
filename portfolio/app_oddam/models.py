@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 type_list = (('f', 'fundacja'),
-             ('o', 'organizacja pozarzdowa'),
+             ('o', 'organizacja pozarzadowa'),
              ('z', 'zbiorka lokalna'))
 
 
@@ -16,6 +16,7 @@ class Institution(models.Model):
     description = models.TextField(max_length=500, null=False)
     type = models.CharField(choices=type_list,max_length=30, default='fundacja')
     categories = models.ManyToManyField(Category)
+
 
 class Donation(models.Model):
     quantity = models.IntegerField(null=False)
