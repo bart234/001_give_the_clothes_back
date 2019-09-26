@@ -1,6 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from app_oddam.models import Donation, Institution
-from random import sample
+from django.contrib.auth.models import User
+
+from app_oddam.form import FormCreateUser
 
 # Create your views here.
 from django.views import View
@@ -29,4 +31,22 @@ class Login(View):
 
 class Register(View):
     def get(self, request):
-        return render(request, 'register.html')
+        f = FormCreateUser()
+        return render(request, 'register.html', {'f': f})
+
+    def post(self, request):
+        form = FormCreateUser(request.POST)
+        if form.is_valid():
+            pwd = form.cleaned_data['password']
+            pwd2 = form.cleaned_data['password2']
+            fn = form.cleaned_data['first_name']
+            ln = form.cleaned_data['last_name']
+            mail = form.cleaned_data['email']
+
+            new_user = User(username=fn+"_"+ln,
+                            first_name=fn,
+                            last_name=ln,
+                            email=mail)
+            new_user.set_password(pwd)
+            new_user.save()
+            return redirect("login_page")
