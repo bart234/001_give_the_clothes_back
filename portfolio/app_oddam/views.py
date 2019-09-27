@@ -1,8 +1,8 @@
-from django.shortcuts import render, redirect
-from app_oddam.models import Donation, Institution
+from django.shortcuts import render, redirect, HttpResponse
+from app_oddam.models import Donation, Institution, Category
 from django.contrib.auth.models import User
-
-from app_oddam.form import FormCreateUser
+from django.contrib.auth import authenticate, login, logout
+from app_oddam.form import FormCreateUser, FormLoginUser
 
 # Create your views here.
 from django.views import View
@@ -21,13 +21,37 @@ class LandingPage(View):
                                               'org': org,
                                               'lcolection': lcolection})
 
+
 class AddDonation(View):
     def get(self, request):
-        return render(request, "form.html")
+        category_list = Category.objects.all()
+        return render(request, "form.html",{'cat_l':category_list})
+
 
 class Login(View):
     def get(self, request):
-        return render(request, 'login.html')
+        f = FormLoginUser()
+        return render(request, 'login.html', {'f': f})
+
+    def post(self, request):
+        form = FormLoginUser(request.POST)
+        if form.is_valid():
+            pwd = form.cleaned_data['password']
+            mail = form.cleaned_data['email']
+            user = authenticate(request, username=mail, password=pwd)
+            if user is not None:
+                login(request, user)
+                return redirect('landing_page')
+            else:
+                return redirect('register_page')
+        else:
+            return redirect('login_page')
+
+class Logout(View):
+    def get(self, request):
+        logout(request)
+        return redirect('landing_page')
+
 
 class Register(View):
     def get(self, request):
@@ -43,7 +67,7 @@ class Register(View):
             ln = form.cleaned_data['last_name']
             mail = form.cleaned_data['email']
 
-            new_user = User(username=fn+"_"+ln,
+            new_user = User(username=mail,
                             first_name=fn,
                             last_name=ln,
                             email=mail)
