@@ -1,8 +1,23 @@
 document.addEventListener("DOMContentLoaded", function() {
   /**
+   * TO sort elements on step 3
+   */
+
+    let inst_group = document.querySelectorAll('.inst-group');
+    let cat_group = document.querySelectorAll('.categories--list');
+    let sort_trigg = document.querySelector('.sort-trigger');
+
+    sort_trigg.addEventListener("click",sort_function);
+
+    function sort_function() {
+        console.log('dsfdsfds');
+        }
+
+
+  /**
    * HomePage - Help section
    */
-  class Help {
+   class Help {
     constructor($el) {
       this.$el = $el;
       this.$buttonsContainer = $el.querySelector(".help--buttons");

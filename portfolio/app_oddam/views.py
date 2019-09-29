@@ -15,6 +15,7 @@ class LandingPage(View):
         fundation = Institution.objects.filter(type="fundacja").order_by('?')[:3]
         org = Institution.objects.filter(type="organizacja pozarzadowa").order_by('?')[:3]
         lcolection = Institution.objects.filter(type="zbiorka lokalna").order_by('?')[:3]
+
         return render(request, "index.html", {'bags': bags,
                                               'institution': institution,
                                               'fundation': fundation,
@@ -25,7 +26,9 @@ class LandingPage(View):
 class AddDonation(View):
     def get(self, request):
         category_list = Category.objects.all()
-        return render(request, "form.html",{'cat_l':category_list})
+        inst_list = Institution.objects.all()
+        return render(request, "form.html", {'cat_l': category_list,
+                                            'inst_l': inst_list})
 
 
 class Login(View):
