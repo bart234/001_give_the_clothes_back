@@ -10,7 +10,32 @@ document.addEventListener("DOMContentLoaded", function() {
     sort_trigg.addEventListener("click",sort_function);
 
     function sort_function() {
-        console.log('dsfdsfds');
+      console.log('start');
+      //take array with categories from checkboxes
+      let checked_list = [];
+        for (var i = 0; i< cat_group.length;i++){
+          if (cat_group[i].checked){
+            checked_list.push(cat_group[i].name)
+          }
+        }
+        //take array with caterories from institution , remove last one
+        for (var a = 0; a< inst_group.length;a++){
+          let temp_list = (inst_group[a].childNodes[1].childNodes[1].name).split('-');
+          temp_list.pop(temp_list.length-1)
+
+          // check if all elements from checked_list are in temp_list
+          // then nothing, else put hide in div
+          for (var b = 0; b<checked_list.length;b++){
+
+            if (temp_list.includes(checked_list[b])){
+            }else{
+              inst_group[a].hidden = true
+            }
+          }
+
+
+        }
+
         }
 
 
