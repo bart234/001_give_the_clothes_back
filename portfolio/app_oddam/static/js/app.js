@@ -2,39 +2,74 @@ document.addEventListener("DOMContentLoaded", function() {
   /**
    * TO sort elements on step 3
    */
-
+    let checked_list = [];
     let inst_group = document.querySelectorAll('.inst-group');
     let cat_group = document.querySelectorAll('.categories--list');
     let sort_trigg = document.querySelector('.sort-trigger');
+    let information_div = document.querySelector('.inst-information');
+    let btn_cat_reveal = document.querySelector('.categories-reveal');
+    let summary_step = document.querySelector('.summary-step');
+    let s_content = document.querySelector('.summary-content')
+    let s_bags_in = document.querySelector('.s_bags')
+    let s_inst_in = document.querySelector('.s_bags')
+    let s_inst_out= document.querySelector('.sumary-out-inst')
 
     sort_trigg.addEventListener("click",sort_function);
+    btn_cat_reveal.addEventListener("click",reveal_inst);
+    summary_step.addEventListener("click",set_summary);
+
+    function set_summary() {
+      s_content.innerText =  s_bags_in.value + " worki zawierajacych "+ checked_list
+      // s_inst_out.innerText =
+    }
+
+    function reveal_inst(){
+      for (let c = 0; c< inst_group.length;c++){
+          inst_group[c].hidden = false
+          }
+      }
+
 
     function sort_function() {
       console.log('start');
       //take array with categories from checkboxes
-      let checked_list = [];
-        for (var i = 0; i< cat_group.length;i++){
+
+        for (let i = 0; i< cat_group.length;i++){
           if (cat_group[i].checked){
             checked_list.push(cat_group[i].name)
           }
         }
+
+
+
         //take array with caterories from institution , remove last one
-        for (var a = 0; a< inst_group.length;a++){
-          let temp_list = (inst_group[a].childNodes[1].childNodes[1].name).split('-');
+        for (let a = 0; a< inst_group.length;a++){
+          let temp_list = (inst_group[a].childNodes[1].children[0].dataset.categories).split('-');
           temp_list.pop(temp_list.length-1)
 
           // check if all elements from checked_list are in temp_list
           // then nothing, else put hide in div
-          for (var b = 0; b<checked_list.length;b++){
-
+          for (let b = 0; b<checked_list.length;b++){
             if (temp_list.includes(checked_list[b])){
             }else{
               inst_group[a].hidden = true
             }
           }
-
-
         }
+        let counter = 0
+        for (a = 0; a< inst_group.length;a++){
+            if (inst_group[a].hidden){
+              counter ++
+            }
+        }
+
+        if (counter == inst_group.length){
+            information_div.hidden = false
+        }else{
+          information_div.hidden = true
+        }
+
+
 
         }
 

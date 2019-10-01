@@ -85,12 +85,12 @@
             <div class="form-group form-group--inline">
               <label>
                 Liczba 60l worków:
-                <input type="number" name="bags" step="1" min="1" />
+                <input class="s_bags" type="number" name="bags" step="1" min="1" />
               </label>
             </div>
 
             <div class="form-group form-group--buttons">
-              <button type="button" class="btn prev-step">Wstecz</button>
+              <button type="button" class="btn prev-step categories-reveal">Wstecz</button>
               <button type="button" class="btn next-step">Dalej</button>
             </div>
           </div>
@@ -103,7 +103,7 @@
             {% for el in inst_l %}
             <div class="form-group form-group--checkbox inst-group" >
               <label>
-                <input type="radio" name="{% for cat in el.categories.all %}{{ cat.name }}-{% endfor %}" value="{{ el.id }}" />
+                <input type="radio" data-categories="{% for cat in el.categories.all %}{{ cat.name }}-{% endfor %}" name="radio_categories" value="{{ el.id }}" />
                 <span class="checkbox radio"></span>
                 <span class="description">
                   <div class="title">{{el.name}}</div>
@@ -114,6 +114,15 @@
               </label>
             </div>
             {% endfor %}
+
+            <div class="form-group form-group--checkbox inst-information" hidden>
+              <label>
+                <span class="description">
+                  <div class="title">Nie odnaleziono instytucji ktora przyjmie wszystkie te dary <br>
+                                    Podziel zlecenie na mniejsze z mniej roznorodnymi kategoriami</div>
+                </span>
+              </label>
+            </div>
 
             <div class="form-group form-group--buttons">
               <button type="button" class="btn prev-step">Wstecz</button>
@@ -169,7 +178,7 @@
             </div>
             <div class="form-group form-group--buttons">
               <button type="button" class="btn prev-step">Wstecz</button>
-              <button type="button" class="btn next-step">Dalej</button>
+              <button type="button" class="btn next-step summary-step">Dalej</button>
             </div>
           </div>
 
@@ -183,14 +192,14 @@
                 <ul>
                   <li>
                     <span class="icon icon-bag"></span>
-                    <span class="summary--text"
-                      >4 worki ubrań w dobrym stanie dla dzieci</span
+                    <span class="summary--text summary-content"
+                      ></span
                     >
                   </li>
 
                   <li>
                     <span class="icon icon-hand"></span>
-                    <span class="summary--text"
+                    <span class="summary--text sumary-out-inst"
                       >Dla fundacji "Mam marzenie" w Warszawie</span
                     >
                   </li>
