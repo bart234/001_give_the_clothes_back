@@ -58,7 +58,7 @@
       <div class="form--steps-container">
         <div class="form--steps-counter">Krok <span>1</span>/5</div>
 
-        <form action="form-confirmation.html" method="post">
+        <form action="" method="post">
           <!-- STEP 1: class .active is switching steps -->
           <div data-step="1" class="active">
             <h3>Zaznacz co chcesz oddać:</h3>
@@ -81,10 +81,9 @@
           <!-- STEP 2 -->
           <div data-step="2">
             <h3>Podaj liczbę 60l worków, w które spakowałeś/aś rzeczy:</h3>
-
+s
             <div class="form-group form-group--inline">
               <label>
-                Liczba 60l worków:
                 <input class="s_bags" type="number" name="bags" step="1" min="1" />
               </label>
             </div>
@@ -103,7 +102,11 @@
             {% for el in inst_l %}
             <div class="form-group form-group--checkbox inst-group" >
               <label>
-                <input type="radio" data-categories="{% for cat in el.categories.all %}{{ cat.name }}-{% endfor %}" name="radio_categories" value="{{ el.id }}" />
+                <input type="radio"
+                       data-categories="{% for cat in el.categories.all %}{{ cat.name }}-{% endfor %}"
+                       data-id="{{ el.id }}"
+                       name="radio_categories"
+                       value="{{el.name}}" />
                 <span class="checkbox radio"></span>
                 <span class="description">
                   <div class="title">{{el.name}}</div>
@@ -138,22 +141,22 @@
               <div class="form-section--column">
                 <h4>Adres odbioru</h4>
                 <div class="form-group form-group--inline">
-                  <label> Ulica <input type="text" name="address" /> </label>
+                  <label> Ulica <input type="text" id="address" /> </label>
                 </div>
 
                 <div class="form-group form-group--inline">
-                  <label> Miasto <input type="text" name="city" /> </label>
+                  <label> Miasto <input type="text" id="city" /> </label>
                 </div>
 
                 <div class="form-group form-group--inline">
                   <label>
-                    Kod pocztowy <input type="text" name="postcode" />
+                    Kod pocztowy <input type="text" id="postcode" />
                   </label>
                 </div>
 
                 <div class="form-group form-group--inline">
                   <label>
-                    Numer telefonu <input type="phone" name="phone" />
+                    Numer telefonu <input type="phone" id="phone" />
                   </label>
                 </div>
               </div>
@@ -161,17 +164,17 @@
               <div class="form-section--column">
                 <h4>Termin odbioru</h4>
                 <div class="form-group form-group--inline">
-                  <label> Data <input type="date" name="data" /> </label>
+                  <label> Data <input type="date" id="data" /> </label>
                 </div>
 
                 <div class="form-group form-group--inline">
-                  <label> Godzina <input type="time" name="time" /> </label>
+                  <label> Godzina <input type="time" id="time" /> </label>
                 </div>
 
                 <div class="form-group form-group--inline">
                   <label>
                     Uwagi dla kuriera
-                    <textarea name="more_info" rows="5"></textarea>
+                    <textarea id="more_info" rows="5"></textarea>
                   </label>
                 </div>
               </div>
@@ -192,16 +195,12 @@
                 <ul>
                   <li>
                     <span class="icon icon-bag"></span>
-                    <span class="summary--text summary-content"
-                      ></span
-                    >
+                    <span class="summary--text summary-content"></span>
                   </li>
 
                   <li>
                     <span class="icon icon-hand"></span>
-                    <span class="summary--text sumary-out-inst"
-                      >Dla fundacji "Mam marzenie" w Warszawie</span
-                    >
+                    <span class="summary--text sumary-out-inst"></span>
                   </li>
                 </ul>
               </div>
@@ -210,19 +209,19 @@
                 <div class="form-section--column">
                   <h4>Adres odbioru:</h4>
                   <ul>
-                    <li>Prosta 51</li>
-                    <li>Warszawa</li>
-                    <li>99-098</li>
-                    <li>123 456 789</li>
+                    <li class="out_address"></li>
+                    <li class="out_city"></li>
+                    <li class="out_postcode"></li>
+                    <li class="out_phone"></li>
                   </ul>
                 </div>
 
                 <div class="form-section--column">
                   <h4>Termin odbioru:</h4>
                   <ul>
-                    <li>13/12/2018</li>
-                    <li>15:40</li>
-                    <li>Brak uwag</li>
+                    <li class="out_data"></li>
+                    <li class="out_time"></li>
+                    <li class="out_more_info"></li>
                   </ul>
                 </div>
               </div>
@@ -233,6 +232,7 @@
               <button type="submit" class="btn">Potwierdzam</button>
             </div>
           </div>
+        {% csrf_token %}
         </form>
       </div>
     </section>

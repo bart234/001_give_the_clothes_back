@@ -16,3 +16,16 @@ class FormLoginUser(forms.Form):
     email = forms.EmailField(max_length=120, label='Email', required=True)
     password = forms.CharField(min_length=4, max_length=100, label='Haslo',
                                widget=forms.PasswordInput, required=True)
+
+
+class FormCreateGift(forms.Form):
+    qty = forms.IntegerField(min_value=1, max_value=99, required=True)
+    address = forms.CharField(max_length=20, required=True)
+    phone = forms.IntegerField(min_value=1000000000, max_value=999999999, required=True)
+    city = forms.CharField(max_length=20, required=True)
+    zip_code = forms.CharField(max_length=6, required=True)
+    pick_up_dta = forms.DateField(required=True)
+    pick_up_time = forms.TimeField(required=True)
+    pick_up_comm = forms.CharField(max_length=120, required=False)
+    inst_id = forms.IntegerField(required=True)
+    user_id = forms.IntegerField(required=True)

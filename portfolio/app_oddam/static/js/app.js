@@ -11,7 +11,6 @@ document.addEventListener("DOMContentLoaded", function() {
     let summary_step = document.querySelector('.summary-step');
     let s_content = document.querySelector('.summary-content')
     let s_bags_in = document.querySelector('.s_bags')
-    let s_inst_in = document.querySelector('.s_bags')
     let s_inst_out= document.querySelector('.sumary-out-inst')
 
     sort_trigg.addEventListener("click",sort_function);
@@ -20,7 +19,35 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function set_summary() {
       s_content.innerText =  s_bags_in.value + " worki zawierajacych "+ checked_list
-      // s_inst_out.innerText =
+      let radio_coll = document.getElementsByName("radio_categories")
+      for (let i =0; i<radio_coll.length;i++){
+        if (radio_coll[i].checked){
+           s_inst_out.innerText = radio_coll[i].value;
+        }
+      }
+      let in_adress = document.getElementById("address")
+      let in_city = document.getElementById("city")
+      let in_postcode = document.getElementById("postcode")
+      let in_phone = document.getElementById("phone")
+      let in_data = document.getElementById("data")
+      let in_time = document.getElementById("time")
+      let in_more_info = document.getElementById("more_info")
+
+      let out_adress = document.querySelector(".out_address")
+      let out_city = document.querySelector(".out_city")
+      let out_postcode = document.querySelector(".out_postcode")
+      let out_phone = document.querySelector(".out_phone")
+      let out_data = document.querySelector(".out_data")
+      let out_time = document.querySelector(".out_time")
+      let out_more_info = document.querySelector(".out_more_info")
+
+      out_adress.innerText= in_adress.value
+      out_city.innerText=in_city.value
+      out_postcode.innerText=in_postcode.value
+      out_phone.innerText=in_phone.value
+      out_data.innerText=in_data.value
+      out_time.innerText=in_time.value
+      out_more_info.innerText=in_more_info.value
     }
 
     function reveal_inst(){
@@ -318,7 +345,7 @@ document.addEventListener("DOMContentLoaded", function() {
      * TODO: validation, send data to server
      */
     submit(e) {
-      e.preventDefault();
+      // e.preventDefault();
       this.currentStep++;
       this.updateForm();
     }

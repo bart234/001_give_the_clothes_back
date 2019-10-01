@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, HttpResponse
 from app_oddam.models import Donation, Institution, Category
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
-from app_oddam.form import FormCreateUser, FormLoginUser
+from app_oddam.form import FormCreateUser, FormLoginUser, FormCreateGift
 
 # Create your views here.
 from django.views import View
@@ -29,6 +29,14 @@ class AddDonation(View):
         inst_list = Institution.objects.all()
         return render(request, "form.html", {'cat_l': category_list,
                                             'inst_l': inst_list})
+
+    def post(self, request):
+        f = FormCreateGift(request.POST)
+        return redirect("confirm_form")
+
+class Confirm(View):
+    def get(self, request):
+        return render(request, 'form-confirmation.html')
 
 
 class Login(View):
