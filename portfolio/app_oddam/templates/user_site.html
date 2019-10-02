@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head %}
+    <header>
+{% endblock head %}
+
+{% block body %}
+    </header>
+
+    <section class="login-page">
+{#      <h2>Zaloguj się</h2>#}
+        User data site
+{#      <form action="" method="post">#}
+{#          {% for el in f %}#}
+{#              {%  if el.name == "password" %}#}
+{#                <div class="form-group">#}
+{#                  <input type="password" name="{{el.name}}" placeholder="{{el.label}}" />#}
+{#                </div>#}
+{#              {% else %}#}
+{#                <div class="form-group">#}
+{#                  <input type="text" name="{{el.name}}" placeholder="{{el.label}}" />#}
+{#                </div>#}
+{#              {% endif %}#}
+{#          {% endfor %}#}
+{#        {% csrf_token %}#}
+{#        <div class="form-group form-group--buttons">#}
+{#          <a href="/register" class="btn btn--without-border">Załóż konto</a>#}
+{#          <a href="#" class="btn btn--without-border">Przypomnij hasło</a>#}
+{#          <button class="btn" type="submit">Zaloguj się</button> #}
+{#        </div>#}
+{#      </form>#}
+    </section>
+
+
+{% endblock body %}

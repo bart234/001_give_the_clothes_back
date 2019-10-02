@@ -66,7 +66,7 @@
            {%  for el in cat_l %}
             <div class="form-group form-group--checkbox">
               <label>
-                <input class="categories--list" type="checkbox" name="{{el.name}}" value="{{el.id}}" />
+                <input class="categories--list" type="checkbox" name="{{el.name}}" id="{{el.id}}" />
                 <span class="checkbox"></span>
                 <span class="description">{{el.name}}</span>
               </label>
@@ -105,8 +105,8 @@ s
                 <input type="radio"
                        data-categories="{% for cat in el.categories.all %}{{ cat.name }}-{% endfor %}"
                        data-id="{{ el.id }}"
-                       name="radio_categories"
-                       value="{{el.name}}" />
+                       name="inst_id"
+                       value="{{ el.id }}" />
                 <span class="checkbox radio"></span>
                 <span class="description">
                   <div class="title">{{el.name}}</div>
@@ -141,22 +141,22 @@ s
               <div class="form-section--column">
                 <h4>Adres odbioru</h4>
                 <div class="form-group form-group--inline">
-                  <label> Ulica <input type="text" id="address" /> </label>
+                  <label> Ulica <input type="text" id="address" name="address" /> </label>
                 </div>
 
                 <div class="form-group form-group--inline">
-                  <label> Miasto <input type="text" id="city" /> </label>
+                  <label> Miasto <input type="text" id="city" name="city"/> </label>
                 </div>
 
                 <div class="form-group form-group--inline">
                   <label>
-                    Kod pocztowy <input type="text" id="postcode" />
+                    Kod pocztowy <input type="text" id="postcode" name="zip_code"/>
                   </label>
                 </div>
 
                 <div class="form-group form-group--inline">
                   <label>
-                    Numer telefonu <input type="phone" id="phone" />
+                    Numer telefonu <input type="phone" id="phone" name="phone"/>
                   </label>
                 </div>
               </div>
@@ -164,17 +164,17 @@ s
               <div class="form-section--column">
                 <h4>Termin odbioru</h4>
                 <div class="form-group form-group--inline">
-                  <label> Data <input type="date" id="data" /> </label>
+                  <label> Data <input type="date" id="data" name="pick_up_data"/> </label>
                 </div>
 
                 <div class="form-group form-group--inline">
-                  <label> Godzina <input type="time" id="time" /> </label>
+                  <label> Godzina <input type="time" id="time" name="pick_up_time"/> </label>
                 </div>
 
                 <div class="form-group form-group--inline">
                   <label>
                     Uwagi dla kuriera
-                    <textarea id="more_info" rows="5"></textarea>
+                    <textarea id="more_info" rows="5" name="pick_up_comm"></textarea>
                   </label>
                 </div>
               </div>

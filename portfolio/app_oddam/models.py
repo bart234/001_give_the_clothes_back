@@ -14,8 +14,11 @@ class Category(models.Model):
 class Institution(models.Model):
     name = models.CharField(max_length=120, null=False)
     description = models.TextField(max_length=500, null=False)
-    type = models.CharField(choices=type_list,max_length=30, default='fundacja')
+    type = models.CharField(choices=type_list, max_length=30, default='fundacja')
     categories = models.ManyToManyField(Category)
+
+    def __str__(self):
+        return self.name
 
 
 class Donation(models.Model):

@@ -28,11 +28,32 @@ class AddDonation(View):
         category_list = Category.objects.all()
         inst_list = Institution.objects.all()
         return render(request, "form.html", {'cat_l': category_list,
-                                            'inst_l': inst_list})
+                                             'inst_l': inst_list})
 
     def post(self, request):
-        f = FormCreateGift(request.POST)
+        qty = request.POST['bags']
+        address = request.POST['address']
+        phone = request.POST['phone']
+        city = request.POST['city']
+        zip_code = request.POST['zip_code']
+        pick_up_data = request.POST['pick_up_data']
+        pick_up_time = request.POST['pick_up_time']
+        pick_up_comm = request.POST['pick_up_comm']
+        inst_id = request.POST['inst_id']
+        user_id = User.objects.get(username=request.user.username).id
+        new_donat = Donation(quantity=qty,
+                             address=address,
+                             phone_number=phone,
+                             city=city,
+                             zip_code=zip_code,
+                             pick_up_date=pick_up_data,
+                             pick_up_time=pick_up_time,
+                             pick_up_comment=pick_up_comm,
+                             institution_id=inst_id,
+                             user_id=user_id)
+        new_donat.save()
         return redirect("confirm_form")
+
 
 class Confirm(View):
     def get(self, request):
@@ -57,6 +78,7 @@ class Login(View):
                 return redirect('register_page')
         else:
             return redirect('login_page')
+
 
 class Logout(View):
     def get(self, request):
@@ -85,3 +107,8 @@ class Register(View):
             new_user.set_password(pwd)
             new_user.save()
             return redirect("login_page")
+
+
+class UserSite(View):
+    def get(self,request):
+        return render(request, "user_site.html")
