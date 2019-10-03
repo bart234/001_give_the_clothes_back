@@ -11,29 +11,52 @@
     <section class="login-page">
       <h2>Profile {{ user.username }}</h2>
 
-       <form action="" method="post">
+{#       <form action="" method="post">#}
             <div class="form-group">
-              <input type="text" name="{{ user.username }}" placeholder="{{ user.username }}" disabled/>
+              Login: <input type="text" name="{{ user.username }}" placeholder="{{ user.username }}" disabled/>
             </div>
             <div class="form-group">
-              <input type="text" name="{{ user.first_name }}" placeholder="{{ user.first_name }}" disabled/>
+              Imie: <input type="text" name="{{ user.first_name }}" placeholder="{{ user.first_name }}" disabled/>
             </div>
             <div class="form-group">
-              <input type="text" name="{{ user.last_name }}" placeholder="{{ user.last_name }}" disabled/>
+              Nazwisko: <input type="text" name="{{ user.last_name }}" placeholder="{{ user.last_name }}" disabled/>
             </div>
             <div class="form-group">
-              <input type="text" name="{{ user.email }}" placeholder="{{ user.email }}" disabled/>
+              Email: <input type="text" name="{{ user.email }}" placeholder="{{ user.email }}" disabled/>
             </div>
             <div class="form-group">
-              <input type="text" name="{{ user.last_login }}" placeholder="{{ user.last_loginusername }}" disabled/>
+              Ostatni login: <input type="text" name="{{ user.last_login }}" placeholder="{{ user.last_login }}" disabled/>
             </div>
             <div class="form-group">
-              <input type="text" name="{{ user.date_joined }}" placeholder="{{ user.date_joined }}" disabled/>
+              Data dolaczenia: <input type="text" name="{{ user.date_joined }}" placeholder="{{ user.date_joined }}" disabled/>
             </div>
-
+                <a href="/edituser" class="btn btn--without-border">Edytuj</a>
+        <form action="" method="post">
         {% csrf_token %}
+       <h2>Dary przekazane</h2>
+
            {% for el in don_list %}
-            {{ el.pick_up_comment }}
+           <div class="form-group form-group--checkbox inst-group" >
+              <label>
+
+                <span class="description">
+                  <h1>{{ forloop.counter }}.</h1>
+                  <div class="title">W dniu {{ el.pick_up_date }} przekazano {{el.quantity}} worki do {{el.institution.name}}</div>
+                  <div class="subtitle"> Kurier {% if el.is_taken  %}  zabral {% else %} nie zabral {% endif %} przesylki.
+
+{#                      {% for cat in el.categories.all %}{{ cat.name }}-{% endfor %}#}
+{#                    {% for des in el.categories.all %} {{ des.name }},{% endfor %}#}
+{#                  <input type="text" id="inst_id" name="inst_id" value="{{ el.id }}" hidden/>#}
+
+                  </div>
+                {% if not el.is_taken  %}
+                    <div class="form-group form-group--buttons">
+                        <button type="submit" class="btn" name="inst_id" value="{{ el.id }}">Oznacz jako zabrany</button>
+                    </div>
+                {% endif %}
+                </span>
+              </label>
+            </div>
 
            {% endfor %}
            {#            <div class="form-group form-group--buttons">#}

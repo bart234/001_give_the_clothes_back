@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head %}
+    <header>
+{% endblock head %}
+
+{% block body %}
+    <script src="{%  static 'js/app_u_edit.js'%}"></script>
+    </header>
+
+    <section class="login-page">
+      <h2>Profile {{ user.username }}</h2>
+
+       <form action="" method="post">
+            <div class="form-group">
+              Login:<input type="text" name="{{ user.username }}" placeholder="{{ user.username }}" disabled/>
+            </div>
+            <div class="form-group">
+              Imie: <input type="text" id="fn" name="first_name" />
+            </div>
+            <div class="form-group">
+              Nazwisko: <input type="text" id="ln" name="last_name"  />
+            </div>
+            <div class="form-group">
+              Email: <input type="text" id="mail" name="email" />
+            </div>
+
+            <div class="form-group">
+              Ostatni login: <input type="text" name="{{ user.last_login }}" placeholder="{{ user.last_login }}" disabled/>
+            </div>
+            <div class="form-group">
+              Data dolaczenia: <input type="text" name="{{ user.date_joined }}" placeholder="{{ user.date_joined }}" disabled/>
+            </div>
+            <div class="form-group">
+              Nowe haslo: <input type="text" id="pwd" name="new_pswd" />
+            </div>
+            <div class="form-group rep_pwd" hidden>
+              Powtorz haslo: <input type="text" id="pwd" name="new_pswd" />
+            </div>
+
+
+            <div class="form-group form-group--buttons">
+                <a href="" class="btn btn--without-border">Wyjdz</a>
+                <button class="btn btn--without-border" type="submit">Zapisz modyfikacje</button>
+            </div>
+            <div class="form-group psswd_div" hidden>
+              Podaj haslo: <input type="password" name="psswd"/>
+            </div>
+
+        {% csrf_token %}
+
+      </form>
+    </section>
+
+
+{% endblock body %}

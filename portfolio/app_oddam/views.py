@@ -114,3 +114,21 @@ class UserSite(View):
         don_list = Donation.objects.filter(user_id=request.user.id)
         return render(request, "user_site.html", {'user': User.objects.get(username=request.user.username),
                                                   'don_list': don_list})
+
+    def post(self, request):
+        don_id = Donation.objects.get(id=request.POST["inst_id"])
+        don_id.is_taken = True
+        don_id.save()
+        return redirect("user_site")
+
+class UserEdit(View):
+    def get(self, request):
+        return render(request, "user_edit.html", {'user': User.objects.get(username=request.user.username)})
+
+    def post(self,request):
+        u = User.objects.get(username=request.user.username)
+        pswd = request.POST['psswd']
+        new_mail = request.POST['email']
+        new_fn = request.POST['first_name']
+        new_ln = request.POST['last_name']
+
