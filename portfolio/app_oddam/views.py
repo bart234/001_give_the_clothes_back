@@ -110,5 +110,7 @@ class Register(View):
 
 
 class UserSite(View):
-    def get(self,request):
-        return render(request, "user_site.html")
+    def get(self, request):
+        don_list = Donation.objects.filter(user_id=request.user.id)
+        return render(request, "user_site.html", {'user': User.objects.get(username=request.user.username),
+                                                  'don_list': don_list})
