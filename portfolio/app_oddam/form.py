@@ -3,6 +3,7 @@ from django import forms
 
 
 class FormCreateUser(forms.Form):
+    username = forms.CharField(max_length=120, label='Nazwa uzytkownika', required=True)
     password = forms.CharField(min_length=4, max_length=100, label='Haslo',
                                widget=forms.PasswordInput, required=True)
     password2 = forms.CharField(min_length=4, max_length=100, label='Powtorz haslo',
@@ -13,7 +14,7 @@ class FormCreateUser(forms.Form):
 
 
 class FormLoginUser(forms.Form):
-    email = forms.EmailField(max_length=120, label='Email', required=True)
+    username = forms.CharField(max_length=120, label='username', required=True)
     password = forms.CharField(min_length=4, max_length=100, label='Haslo',
                                widget=forms.PasswordInput, required=True)
 

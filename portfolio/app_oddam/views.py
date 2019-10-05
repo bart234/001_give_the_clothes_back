@@ -69,8 +69,8 @@ class Login(View):
         form = FormLoginUser(request.POST)
         if form.is_valid():
             pwd = form.cleaned_data['password']
-            mail = form.cleaned_data['email']
-            user = authenticate(request, username=mail, password=pwd)
+            username = form.cleaned_data['username']
+            user = authenticate(request, username=username, password=pwd)
             if user is not None:
                 login(request, user)
                 return redirect('landing_page')
@@ -94,19 +94,22 @@ class Register(View):
     def post(self, request):
         form = FormCreateUser(request.POST)
         if form.is_valid():
+            username = form.cleaned_data['username']
             pwd = form.cleaned_data['password']
             pwd2 = form.cleaned_data['password2']
             fn = form.cleaned_data['first_name']
             ln = form.cleaned_data['last_name']
             mail = form.cleaned_data['email']
 
-            new_user = User(username=mail,
+            new_user = User(username=username,
                             first_name=fn,
                             last_name=ln,
                             email=mail)
             new_user.set_password(pwd)
             new_user.save()
             return redirect("login_page")
+        else:
+            return HttpResponse('validacja failed')
 
 
 class UserSite(View):
@@ -121,14 +124,33 @@ class UserSite(View):
         don_id.save()
         return redirect("user_site")
 
+
 class UserEdit(View):
     def get(self, request):
         return render(request, "user_edit.html", {'user': User.objects.get(username=request.user.username)})
 
-    def post(self,request):
+    def post(self, request):
         u = User.objects.get(username=request.user.username)
-        pswd = request.POST['psswd']
         new_mail = request.POST['email']
         new_fn = request.POST['first_name']
         new_ln = request.POST['last_name']
+        new_pswd = request.POST['new_pswd']
+        new_pswd_rep = request.POST['new_pswd_rep']
+        old_psswd = request.POST['old_psswd']
+
+        if u.check_password(old_psswd):
+            if u.email != new_mail and new_mail == "" :
+                u.email = new_mail
+            if u.first_name != new_fn:
+                u.first_name = new_fn
+            if u.last_name != new_ln:
+                u.last_name = new_ln
+            if new_pswd == new_pswd_rep:
+                u.set_password(new_pswd)
+            u.save()
+            return redirect("user_edit")
+
+        else:
+            return redirect("user_edit")
+
 

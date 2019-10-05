@@ -9,15 +9,18 @@ document.addEventListener("DOMContentLoaded", function() {
   fn.addEventListener('keyup', show_pswd);
   ln.addEventListener('keyup', show_pswd);
   mail.addEventListener('keyup', show_pswd);
-  pwd.addEventListener('keyup', show_pswd);
+  pwd.addEventListener('keyup', show_rep_pswd);
 
+
+  function show_rep_pswd() {
+    rep_pswd_div.hidden = false;
+    show_pswd()
+  }
 
   function show_pswd() {
-    // console.log('sdfsdf');
     pswd_div.hidden = false
   }
     function show_pswd_rep() {
-    // console.log('sdfsdf');
     rep_pswd_div.hidden = false
   }
 });

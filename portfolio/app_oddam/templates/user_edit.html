@@ -33,10 +33,10 @@
               Data dolaczenia: <input type="text" name="{{ user.date_joined }}" placeholder="{{ user.date_joined }}" disabled/>
             </div>
             <div class="form-group">
-              Nowe haslo: <input type="text" id="pwd" name="new_pswd" />
+              Nowe haslo: <input type="password" id="pwd" name="new_pswd" />
             </div>
             <div class="form-group rep_pwd" hidden>
-              Powtorz haslo: <input type="text" id="pwd" name="new_pswd" />
+              Powtorz haslo: <input type="password" name="new_pswd_rep" />
             </div>
 
 
@@ -44,8 +44,9 @@
                 <a href="" class="btn btn--without-border">Wyjdz</a>
                 <button class="btn btn--without-border" type="submit">Zapisz modyfikacje</button>
             </div>
+
             <div class="form-group psswd_div" hidden>
-              Podaj haslo: <input type="password" name="psswd"/>
+              Podaj haslo: <input type="password" name="old_psswd"/>
             </div>
 
         {% csrf_token %}
