@@ -12,9 +12,33 @@ document.addEventListener("DOMContentLoaded", function() {
     let s_content = document.querySelector('.summary-content');
     let s_bags_in = document.querySelector('.s_bags');
     let s_inst_out= document.querySelector('.sumary-out-inst');
+    let show_fund = document.getElementById('show_fund');
+    let show_org = document.getElementById('show_org');
+    let show_coll = document.getElementById('show_coll');
+    let div_fund = document.getElementById('div_fundation');
+    let div_org = document.getElementById('div_org');
+    let div_coll = document.getElementById('div_coll');
 
 
+    show_fund.addEventListener("click", show_only_fund);
+    show_org.addEventListener("click", show_only_org);
+    show_coll.addEventListener("click", show_only_coll);
 
+    function show_only_fund() {
+      div_fund.hidden = false;
+      div_org.hidden = true;
+      div_coll.hidden = true
+    }
+    function show_only_org() {
+      div_fund.hidden = true;
+      div_org.hidden = false;
+      div_coll.hidden = true
+    }
+    function show_only_coll() {
+      div_fund.hidden = true;
+      div_org.hidden = true;
+      div_coll.hidden = false
+    }
     sort_trigg.addEventListener("click",sort_function);
     btn_cat_reveal.addEventListener("click",reveal_inst);
     summary_step.addEventListener("click",set_summary);

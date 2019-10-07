@@ -2,7 +2,9 @@ from django.shortcuts import render, redirect, HttpResponse
 from app_oddam.models import Donation, Institution, Category
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
-from app_oddam.form import FormCreateUser, FormLoginUser, FormCreateGift
+from django.contrib import messages
+from app_oddam.form import FormCreateUser, FormLoginUser
+from django.core.paginator import Paginator
 
 # Create your views here.
 from django.views import View
@@ -13,7 +15,17 @@ class LandingPage(View):
         bags = Donation.objects.filter(quantity__gt=0).count()
         institution = Institution.objects.filter(id__gt=0).count()
         fundation = Institution.objects.filter(type="fundacja").order_by('?')[:3]
+
+        # fundation = Institution.objects.filter(type="fundacja").all()
+        # inst_pagi = Paginator(fundation, 2)
+        # page = request.GET.get('page')
+        # inst_pag_result = inst_pagi.get_page(page)
+
         org = Institution.objects.filter(type="organizacja pozarzadowa").order_by('?')[:3]
+        # org_pagi = Paginator(org, 2)
+        # page2 = request.GET.get('page')
+        # org_pag_result = org_pagi.get_page(page2)
+
         lcolection = Institution.objects.filter(type="zbiorka lokalna").order_by('?')[:3]
 
         return render(request, "index.html", {'bags': bags,
@@ -63,6 +75,7 @@ class Confirm(View):
 class Login(View):
     def get(self, request):
         f = FormLoginUser()
+
         return render(request, 'login.html', {'f': f})
 
     def post(self, request):
@@ -73,16 +86,20 @@ class Login(View):
             user = authenticate(request, username=username, password=pwd)
             if user is not None:
                 login(request, user)
+                messages.success(request, 'Zalogowano')
                 return redirect('landing_page')
             else:
+                messages.error(request, 'Haslo lub login sa nieprawidlowe')
                 return redirect('register_page')
         else:
+            messages.error(request, 'Wystapil blad, sprobuj jeszcze raz')
             return redirect('login_page')
 
 
 class Logout(View):
     def get(self, request):
         logout(request)
+        messages.success(request, 'Wylogowano')
         return redirect('landing_page')
 
 
@@ -96,7 +113,6 @@ class Register(View):
         if form.is_valid():
             username = form.cleaned_data['username']
             pwd = form.cleaned_data['password']
-            pwd2 = form.cleaned_data['password2']
             fn = form.cleaned_data['first_name']
             ln = form.cleaned_data['last_name']
             mail = form.cleaned_data['email']
@@ -107,9 +123,11 @@ class Register(View):
                             email=mail)
             new_user.set_password(pwd)
             new_user.save()
-            return redirect("login_page")
+            messages.success(request, 'Konto zostalo utworzone')
+            return redirect("landing_page")
         else:
-            return HttpResponse('validacja failed')
+            messages.success(request, 'Wystapil blad, sprobuj jeszcze raz')
+            return redirect("register_page")
 
 
 class UserSite(View):
@@ -122,6 +140,7 @@ class UserSite(View):
         don_id = Donation.objects.get(id=request.POST["inst_id"])
         don_id.is_taken = True
         don_id.save()
+        messages.success(request, 'Zmiana zostala zapisana')
         return redirect("user_site")
 
 
@@ -141,16 +160,18 @@ class UserEdit(View):
         if u.check_password(old_psswd):
             if u.email != new_mail and new_mail == "" :
                 u.email = new_mail
-            if u.first_name != new_fn:
+            if u.first_name != new_fn and new_fn == "":
                 u.first_name = new_fn
             if u.last_name != new_ln:
                 u.last_name = new_ln
-            if new_pswd == new_pswd_rep:
+            if new_pswd == new_pswd_rep and new_pswd != "" :
                 u.set_password(new_pswd)
             u.save()
+            messages.success(request, 'Zmiana zostala zapisana')
             return redirect("user_edit")
 
         else:
+            messages.error(request, 'Bledne haslo')
             return redirect("user_edit")
 
 

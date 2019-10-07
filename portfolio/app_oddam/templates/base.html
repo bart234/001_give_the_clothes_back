@@ -13,6 +13,7 @@
 
     {% block head %}
     {% endblock head %}
+
         <nav class="container container--70">
 
         {% if user.is_authenticated %}
@@ -51,7 +52,13 @@
           <li><a href="/#contact" class="btn btn--without-border">Kontakt</a></li>
         </ul>
       </nav>
-
+    {% if messages %}
+        {% for message in messages %}
+          <div class="alert alert-{{ message.tags }}">
+                <strong>{{ message }}</strong>
+            </div>
+        {% endfor %}
+    {% endif %}
 
   {% block body %} {% endblock  %}
       <footer>

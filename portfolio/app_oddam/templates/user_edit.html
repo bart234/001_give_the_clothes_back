@@ -13,17 +13,18 @@
       <h2>Profile {{ user.username }}</h2>
 
        <form action="" method="post">
+
             <div class="form-group">
               Login:<input type="text" name="{{ user.username }}" placeholder="{{ user.username }}" disabled/>
             </div>
             <div class="form-group">
-              Imie: <input type="text" id="fn" name="first_name" />
+              Imie: <input type="text" id="fn" name="first_name" value="{{ user.first_name }}" />
             </div>
             <div class="form-group">
-              Nazwisko: <input type="text" id="ln" name="last_name"  />
+              Nazwisko: <input type="text" id="ln" name="last_name" value="{{    user.last_name }}"  />{
             </div>
             <div class="form-group">
-              Email: <input type="text" id="mail" name="email" />
+              Email: <input type="text" id="mail" name="email"  value="{{ user.email }}"/>
             </div>
 
             <div class="form-group">
