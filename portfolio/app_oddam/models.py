@@ -1,10 +1,11 @@
 from django.db import models
 from django.contrib.auth.models import User
+from app_oddam.site_set import FUNDACJA, ORGANIZACJA_PZ, ZBIORKA_L
 
 # Create your models here.
-type_list = (('f', 'fundacja'),
-             ('o', 'organizacja pozarzadowa'),
-             ('z', 'zbiorka lokalna'))
+type_list = (('f', '{}'.format(FUNDACJA)),
+             ('o', '{}'.format(ORGANIZACJA_PZ)),
+             ('z', '{}'.format(ZBIORKA_L)))
 
 
 class Category(models.Model):
@@ -16,7 +17,7 @@ class Category(models.Model):
 class Institution(models.Model):
     name = models.CharField(max_length=120, null=False)
     description = models.TextField(max_length=500, null=False)
-    type = models.CharField(choices=type_list, max_length=30, default='fundacja')
+    type = models.CharField(choices=type_list, max_length=30, default=FUNDACJA)
     categories = models.ManyToManyField(Category)
 
     def __str__(self):

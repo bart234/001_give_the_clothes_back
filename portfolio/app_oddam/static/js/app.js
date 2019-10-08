@@ -16,33 +16,52 @@ document.addEventListener("DOMContentLoaded", function() {
     let show_org = document.getElementById('show_org');
     let show_coll = document.getElementById('show_coll');
     let div_fund = document.getElementById('div_fundation');
+    // let div_fund_btn = document.getElementById('div_fundation_btn');
     let div_org = document.getElementById('div_org');
+    // let div_org_btn = document.getElementById('div_org_btn');
     let div_coll = document.getElementById('div_coll');
+    // let div_coll_btn = document.getElementById('div_coll_btn');
 
+    if (typeof (show_fund) !== 'undefined' && show_fund != null){
+      show_fund.addEventListener("click", show_only_fund);
+      show_org.addEventListener("click", show_only_org);
+      show_coll.addEventListener("click", show_only_coll);
+    }
 
-    // show_fund.addEventListener("click", show_only_fund);
-    // show_org.addEventListener("click", show_only_org);
-    // show_coll.addEventListener("click", show_only_coll);
     //
-    // function show_only_fund() {
-    //   div_fund.hidden = false;
-    //   div_org.hidden = true;
-    //   div_coll.hidden = true
-    // }
-    // function show_only_org() {
-    //   div_fund.hidden = true;
-    //   div_org.hidden = false;
-    //   div_coll.hidden = true
-    // }
-    // function show_only_coll() {
-    //   div_fund.hidden = true;
-    //   div_org.hidden = true;
-    //   div_coll.hidden = false
-    // }
+    function show_only_fund() {
+      div_fund.classList.add("active");
+      div_org.classList.remove("active");
+      div_coll.classList.remove("active");
+      // div_fund_btn.hidden = false;
+      // div_org_btn.hidden = true;
+      // div_coll_btn.hidden = true;
+    }
 
-    sort_trigg.addEventListener("click",sort_function);
-    btn_cat_reveal.addEventListener("click",reveal_inst);
-    summary_step.addEventListener("click",set_summary);
+    function show_only_org() {
+      div_fund.classList.remove("active");
+      div_org.classList.add("active");
+      div_coll.classList.remove("active");
+      // div_fund_btn.hidden = true;
+      // div_org_btn.hidden = false;
+      // div_coll_btn.hidden = true;
+    }
+
+    function show_only_coll() {
+      div_fund.classList.remove("active");
+      div_org.classList.remove("active");
+      div_coll.classList.add("active");
+      // div_fund_btn.hidden = true;
+      // div_org_btn.hidden = true;
+      // div_coll_btn.hidden = false;
+    }
+
+    if (typeof (sort_trigg) !== 'undefined' && sort_trigg != null){
+      sort_trigg.addEventListener("click",sort_function);
+      btn_cat_reveal.addEventListener("click",reveal_inst);
+      summary_step.addEventListener("click",set_summary);
+    }
+
 
     function set_summary() {
       s_content.innerText =  s_bags_in.value + " worki zawierajacych "+ checked_list;
@@ -86,9 +105,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
     function sort_function() {
-      console.log('start');
       //take array with categories from checkboxes
-
         for (let i = 0; i< cat_group.length;i++){
           if (cat_group[i].checked){
             checked_list.push(cat_group[i].name)

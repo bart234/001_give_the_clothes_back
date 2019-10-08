@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from app_oddam.form import FormCreateUser, FormLoginUser
+from app_oddam.site_set import FUNDACJA, ORGANIZACJA_PZ, ZBIORKA_L, INST_NUMBERS
 from django.core.paginator import Paginator
 
 # Create your views here.
@@ -14,23 +15,20 @@ class LandingPage(View):
     def get(self, request):
         bags = Donation.objects.filter(quantity__gt=0).count()
         institution = Institution.objects.filter(id__gt=0).count()
-        fundation = Institution.objects.filter(type="fundacja").order_by('?')[:3]
+        fundation = Institution.objects.filter(type='{}'.format(FUNDACJA)).order_by('?')[:INST_NUMBERS]
 
         # fundation = Institution.objects.filter(type="fundacja").all()
         # inst_pagi = Paginator(fundation, 2)
         # page = request.GET.get('page')
         # inst_pag_result = inst_pagi.get_page(page)
 
-        org = Institution.objects.filter(type="organizacja pozarzadowa").order_by('?')[:3]
-        # org_pagi = Paginator(org, 2)
-        # page2 = request.GET.get('page')
-        # org_pag_result = org_pagi.get_page(page2)
-
-        lcolection = Institution.objects.filter(type="zbiorka lokalna").order_by('?')[:3]
+        org = Institution.objects.filter(type="{}".format(ORGANIZACJA_PZ)).order_by('?')[:INST_NUMBERS]
+        lcolection = Institution.objects.filter(type="{}".format(ZBIORKA_L)).order_by('?')[:INST_NUMBERS]
 
         return render(request, "index.html", {'bags': bags,
                                               'institution': institution,
                                               'fundation': fundation,
+                                              # 'fundation': inst_pag_result,
                                               'org': org,
                                               'lcolection': lcolection})
 

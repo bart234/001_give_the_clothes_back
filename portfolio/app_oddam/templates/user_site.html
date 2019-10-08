@@ -9,62 +9,89 @@
     </header>
 
     <section class="login-page">
-      <h2>Profile {{ user.username }}</h2>
-
-{#       <form action="" method="post">#}
-            <div class="form-group">
-              Login: <input type="text" name="{{ user.username }}" placeholder="{{ user.username }}" disabled/>
-            </div>
-            <div class="form-group">
-              Imie: <input type="text" name="{{ user.first_name }}" placeholder="{{ user.first_name }}" disabled/>
-            </div>
-            <div class="form-group">
-              Nazwisko: <input type="text" name="{{ user.last_name }}" placeholder="{{ user.last_name }}" disabled/>
-            </div>
-            <div class="form-group">
-              Email: <input type="text" name="{{ user.email }}" placeholder="{{ user.email }}" disabled/>
-            </div>
-            <div class="form-group">
-              Ostatni login: <input type="text" name="{{ user.last_login }}" placeholder="{{ user.last_login }}" disabled/>
-            </div>
-            <div class="form-group">
-              Data dolaczenia: <input type="text" name="{{ user.date_joined }}" placeholder="{{ user.date_joined }}" disabled/>
-            </div>
-                <a href="/edituser" class="btn btn--without-border">Edytuj</a>
-        <form action="" method="post">
-        {% csrf_token %}
-       <h2>Dary przekazane</h2>
-
-           {% for el in don_list %}
-           <div class="form-group form-group--checkbox inst-group" >
-              <label>
-
-                <span class="description">
-                  <h1>{{ forloop.counter }}.</h1>
-                  <div class="title">W dniu {{ el.pick_up_date }} przekazano {{el.quantity}} worki do {{el.institution.name}}</div>
-                  <div class="subtitle"> Kurier {% if el.is_taken  %}  zabral {% else %} nie zabral {% endif %} przesylki.
-
-{#                      {% for cat in el.categories.all %}{{ cat.name }}-{% endfor %}#}
-{#                    {% for des in el.categories.all %} {{ des.name }},{% endfor %}#}
-{#                  <input type="text" id="inst_id" name="inst_id" value="{{ el.id }}" hidden/>#}
-
-                  </div>
-                {% if not el.is_taken  %}
-                    <div class="form-group form-group--buttons">
-                        <button type="submit" class="btn" name="inst_id" value="{{ el.id }}">Oznacz jako zabrany</button>
+        <h2>Profile {{ user.username }}</h2>
+        <table>
+            <tr>
+                <td>Login:</td>
+                <td>
+                    <div class="form-group">
+                       <input type="text" name="{{ user.username }}" placeholder="{{ user.username }}" disabled/>
                     </div>
-                {% endif %}
-                </span>
-              </label>
-            </div>
-
-           {% endfor %}
-           {#            <div class="form-group form-group--buttons">#}
-{#              <a href="/login" class="btn btn--without-border">Zaloguj się</a>#}
-{#              <button class="btn" type="submit">Załóż konto</button>#}
-{#            </div>#}
-      </form>
+                </td>
+            </tr>
+            <tr>
+                <td>Imie:</td>
+                <td>
+                    <div class="form-group">
+                       <input type="text" name="{{ user.first_name }}" placeholder="{{ user.first_name }}" disabled/>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>Nazwisko:</td>
+                <td>
+                    <div class="form-group">
+                        <input type="text" name="{{ user.last_name }}" placeholder="{{ user.last_name }}" disabled/>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>Email:</td>
+                <td>
+                    <div class="form-group">
+                        <input type="text" name="{{ user.email }}" placeholder="{{ user.email }}" disabled/>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>Ostatni login:</td>
+                <td>
+                    <div class="form-group">
+                        <input type="text" name="{{ user.last_login }}" placeholder="{{ user.last_login }}" disabled/>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>Data dolaczenia:</td>
+                <td>
+                   <div class="form-group">
+                   <input type="text" name="{{ user.date_joined }}" placeholder="{{ user.date_joined }}" disabled/>
+                </div>
+                </td>
+            </tr>
+        </table>
+        <a href="/edituser" class="btn btn--without-border">Edytuj</a>
     </section>
 
-
+    <section class="login-page">
+        <h2>Przekazane dary</h2>
+        <form action="" method="post">
+        {% csrf_token %}
+            <table>
+                   <tr>
+                    <td>Lp.</td>
+                    <td>Data odbioru </td>
+                    <td>Worki (szt.) </td>
+                    <td>Instytucja</td>
+                    <td>Czy odebrano</td>
+                    <td>Potwierdz odbior</td>
+                </tr>
+            {% for el in don_list %}
+                <tr>
+                    <td>{{ forloop.counter }}.</td>
+                    <td>{{ el.pick_up_date }} </td>
+                    <td>{{el.quantity}} </td>
+                    <td>{{el.institution.name}}</td>
+                    <td>{% if el.is_taken  %}  odebrano {% else %} nie odebrano{% endif %}</td>
+                    <td>{% if not el.is_taken  %}
+                        <button type="submit" name="inst_id" value="{{ el.id }}">
+                            Oznacz jako zabrany
+                        </button>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </table>
+        </form>
+    </section>
 {% endblock body %}

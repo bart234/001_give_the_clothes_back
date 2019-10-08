@@ -13,42 +13,92 @@
       <h2>Profile {{ user.username }}</h2>
 
        <form action="" method="post">
+       <table>
+            <tr>
+                <td>Login:</td>
+                <td>
+                    <div class="form-group">
+                       <input type="text" name="{{ user.username }}" placeholder="{{ user.username }}" disabled/>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>Imie:</td>
+                <td>
+                    <div class="form-group">
+                       <input type="text" name="{{ user.first_name }}" placeholder="{{ user.first_name }}"/>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>Nazwisko:</td>
+                <td>
+                    <div class="form-group">
+                        <input type="text" name="{{ user.last_name }}" placeholder="{{ user.last_name }}"/>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>Email:</td>
+                <td>
+                    <div class="form-group">
+                        <input type="text" name="{{ user.email }}" placeholder="{{ user.email }}"/>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>Ostatni login:</td>
+                <td>
+                    <div class="form-group">
+                        <input type="text" name="{{ user.last_login }}" placeholder="{{ user.last_login }}" disabled/>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>Data dolaczenia:</td>
+                <td>
+                   <div class="form-group">
+                   <input type="text" name="{{ user.date_joined }}" placeholder="{{ user.date_joined }}" disabled/>
+                </div>
+                </td>
+            </tr>
+           <tr>
+                <td>Nowe haslo: </td>
+                <td>
+                   <div class="form-group">
+                   <input type="password" id="pwd" name="new_pswd" />
+                </div>
+                </td>
+            </tr>
+           <tr>
+                <td>Powtorz haslo:</td>
+                <td>
+                   <div class="form-group rep_pwd">
+                   <input type="password" name="new_pswd_rep" />
+                </div>
+                </td>
+            </tr>
+           <tr><td></td></tr>
+           <tr class="form-group psswd_div">
+               <td>Podaj aktualne</td>
+                <td>
+                   <div class="form-group psswd_div">
+                   <input type="password" name="old_psswd"/>
+                    </div>
+                </td>
+           </tr>
+        </table>
 
-            <div class="form-group">
-              Login:<input type="text" name="{{ user.username }}" placeholder="{{ user.username }}" disabled/>
-            </div>
-            <div class="form-group">
-              Imie: <input type="text" id="fn" name="first_name" value="{{ user.first_name }}" />
-            </div>
-            <div class="form-group">
-              Nazwisko: <input type="text" id="ln" name="last_name" value="{{    user.last_name }}"  />{
-            </div>
-            <div class="form-group">
-              Email: <input type="text" id="mail" name="email"  value="{{ user.email }}"/>
-            </div>
-
-            <div class="form-group">
-              Ostatni login: <input type="text" name="{{ user.last_login }}" placeholder="{{ user.last_login }}" disabled/>
-            </div>
-            <div class="form-group">
-              Data dolaczenia: <input type="text" name="{{ user.date_joined }}" placeholder="{{ user.date_joined }}" disabled/>
-            </div>
-            <div class="form-group">
-              Nowe haslo: <input type="password" id="pwd" name="new_pswd" />
-            </div>
-            <div class="form-group rep_pwd" hidden>
-              Powtorz haslo: <input type="password" name="new_pswd_rep" />
-            </div>
 
 
             <div class="form-group form-group--buttons">
                 <a href="" class="btn btn--without-border">Wyjdz</a>
                 <button class="btn btn--without-border" type="submit">Zapisz modyfikacje</button>
             </div>
-
-            <div class="form-group psswd_div" hidden>
-              Podaj haslo: <input type="password" name="old_psswd"/>
-            </div>
+{##}
+{#            <div class="form-group psswd_div" hidden>#}
+{#              Podaj haslo: <input type="password" name="old_psswd"/>#}
+{#            </div>#}
 
         {% csrf_token %}
 
