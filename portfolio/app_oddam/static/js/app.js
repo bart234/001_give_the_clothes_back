@@ -20,32 +20,33 @@ document.addEventListener("DOMContentLoaded", function() {
     let div_coll = document.getElementById('div_coll');
 
 
-    show_fund.addEventListener("click", show_only_fund);
-    show_org.addEventListener("click", show_only_org);
-    show_coll.addEventListener("click", show_only_coll);
+    // show_fund.addEventListener("click", show_only_fund);
+    // show_org.addEventListener("click", show_only_org);
+    // show_coll.addEventListener("click", show_only_coll);
+    //
+    // function show_only_fund() {
+    //   div_fund.hidden = false;
+    //   div_org.hidden = true;
+    //   div_coll.hidden = true
+    // }
+    // function show_only_org() {
+    //   div_fund.hidden = true;
+    //   div_org.hidden = false;
+    //   div_coll.hidden = true
+    // }
+    // function show_only_coll() {
+    //   div_fund.hidden = true;
+    //   div_org.hidden = true;
+    //   div_coll.hidden = false
+    // }
 
-    function show_only_fund() {
-      div_fund.hidden = false;
-      div_org.hidden = true;
-      div_coll.hidden = true
-    }
-    function show_only_org() {
-      div_fund.hidden = true;
-      div_org.hidden = false;
-      div_coll.hidden = true
-    }
-    function show_only_coll() {
-      div_fund.hidden = true;
-      div_org.hidden = true;
-      div_coll.hidden = false
-    }
     sort_trigg.addEventListener("click",sort_function);
     btn_cat_reveal.addEventListener("click",reveal_inst);
     summary_step.addEventListener("click",set_summary);
 
     function set_summary() {
       s_content.innerText =  s_bags_in.value + " worki zawierajacych "+ checked_list;
-      let radio_coll = document.getElementsByName("radio_categories");
+      let radio_coll = document.getElementsByName("inst_id");
       for (let i =0; i<radio_coll.length;i++){
         if (radio_coll[i].checked){
            s_inst_out.innerText = radio_coll[i].value;
