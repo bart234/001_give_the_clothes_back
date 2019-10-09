@@ -156,13 +156,13 @@ class UserEdit(View):
         old_psswd = request.POST['old_psswd']
 
         if u.check_password(old_psswd):
-            if u.email != new_mail and new_mail == "" :
+            if u.email != new_mail and new_mail != "":
                 u.email = new_mail
             if u.first_name != new_fn and new_fn == "":
                 u.first_name = new_fn
             if u.last_name != new_ln:
                 u.last_name = new_ln
-            if new_pswd == new_pswd_rep and new_pswd != "" :
+            if new_pswd == new_pswd_rep and new_pswd != "":
                 u.set_password(new_pswd)
             u.save()
             messages.success(request, 'Zmiana zostala zapisana')

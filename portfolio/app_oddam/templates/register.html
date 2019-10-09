@@ -6,27 +6,44 @@
 {% endblock head %}
 
 {% block body %}
+    <script src="{%  static 'js/app_u_create.js'%}"></script>
     </header>
 
     <section class="login-page">
       <h2>Załóż konto</h2>
       <form action="" method="post">
-          {% for el in f %}
-              {%  if el.name == "password" or el.name == 'password2' %}
-                <div class="form-group">
-                  <input type="password" name="{{el.name}}" placeholder="{{el.label}}" />
-                </div>
-              {% else %}
-                <div class="form-group">
-                  <input type="text" name="{{el.name}}" placeholder="{{el.label}}" />
-                </div>
-              {% endif %}
-          {% endfor %}
-        {% csrf_token %}
-        <div class="form-group form-group--buttons">
-          <a href="/login" class="btn btn--without-border">Zaloguj się</a>
-          <button class="btn" type="submit">Załóż konto</button>
-        </div>
+        <table>
+              {% for el in f %}
+                  <tr>
+                    <td>{{el.label}}:</td>
+
+                      {%  if el.name == "password" or el.name == 'password2' %}
+                        <td>
+                            <div class="form-group">
+                              <input type="password" id="div_{{ el.name }}" name="{{el.name}}" />
+                            </div>
+                        </td>
+                        <td id="div_{{ el.name }}_info" ></td>
+                      {% else %}
+                        <td>
+                            <div class="form-group">
+                              <input type="text" id="div_{{ el.name }}" name="{{el.name}}" />
+                            </div>
+                        </td>
+                        <td id="div_{{ el.name }}_info"></td>
+                      {% endif %}
+                  </tr>
+              {% endfor %}
+            {% csrf_token %}
+            <tr>
+                <td>
+                    <a href="/login" class="btn btn--without-border">Zaloguj się</a>
+                </td>
+                <td>
+                    <button class="btn btn--without-border" type="submit">Załóż konto</button>
+                </td>
+            </tr>
+        </table>
       </form>
     </section>
 {% endblock body %}

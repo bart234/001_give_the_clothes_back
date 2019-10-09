@@ -26,7 +26,7 @@
                 <td>Imie:</td>
                 <td>
                     <div class="form-group">
-                       <input type="text" name="{{ user.first_name }}" placeholder="{{ user.first_name }}"/>
+                       <input type="text" id="fn" name="first_name" placeholder="{{ user.first_name }}"/>
                     </div>
                 </td>
             </tr>
@@ -34,7 +34,7 @@
                 <td>Nazwisko:</td>
                 <td>
                     <div class="form-group">
-                        <input type="text" name="{{ user.last_name }}" placeholder="{{ user.last_name }}"/>
+                        <input type="text" id="ln" name="last_name" placeholder="{{ user.last_name }}"/>
                     </div>
                 </td>
             </tr>
@@ -42,7 +42,7 @@
                 <td>Email:</td>
                 <td>
                     <div class="form-group">
-                        <input type="text" name="{{ user.email }}" placeholder="{{ user.email }}"/>
+                        <input type="text" id="mail" name="email" placeholder="{{ user.email }}"/>
                     </div>
                 </td>
             </tr>
@@ -70,35 +70,31 @@
                 </div>
                 </td>
             </tr>
-           <tr>
+           <tr class="rep_pwd" hidden>
                 <td>Powtorz haslo:</td>
                 <td>
-                   <div class="form-group rep_pwd">
+                   <div class="form-group">
                    <input type="password" name="new_pswd_rep" />
                 </div>
                 </td>
             </tr>
-           <tr><td></td></tr>
-           <tr class="form-group psswd_div">
-               <td>Podaj aktualne</td>
+
+            <tr class=" psswd_div" hidden>
+                <td>Podaj aktualne</td>
                 <td>
-                   <div class="form-group psswd_div">
-                   <input type="password" name="old_psswd"/>
-                    </div>
+                   <div class="form-group">
+                        <input type="password" name="old_psswd"/>
+                   </div>
                 </td>
-           </tr>
+            </tr>
+            <tr>
+                <td><a href="" class="btn btn--without-border">Wyjdz</a></td>
+                <td><button class="btn btn--without-border" type="submit">Zapisz modyfikacje</button></td>
+            </tr>
         </table>
 
 
 
-            <div class="form-group form-group--buttons">
-                <a href="" class="btn btn--without-border">Wyjdz</a>
-                <button class="btn btn--without-border" type="submit">Zapisz modyfikacje</button>
-            </div>
-{##}
-{#            <div class="form-group psswd_div" hidden>#}
-{#              Podaj haslo: <input type="password" name="old_psswd"/>#}
-{#            </div>#}
 
         {% csrf_token %}
 
