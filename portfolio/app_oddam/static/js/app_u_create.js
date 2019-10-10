@@ -14,12 +14,26 @@ let div_first_name_info= document.getElementById('div_first_name_info');
 let div_last_name_info= document.getElementById('div_last_name_info');
 let div_email_info= document.getElementById('div_email_info');
 
-    div_username_info.innerText = 'required, max 10 letters or numbers';
-    div_password_info.innerText= 'require at least one: number, capital letter, more then 6 sign, less then 20';
-    div_password2_info.innerText= 'require at least one: number, capital letter, more then 6 sign, less then 20';
-    div_first_name_info.innerText= 'required, max 12 letters';
-    div_last_name_info.innerText= 'required, max 18 letters';
-    div_email_info.innerText= 'required, max 22 letters';
+    let condition_1='required, max 10 letters or numbers';
+    let condition_2='require at least one: number, capital letter, more then 6 sign, less then 20';
+    let condition_4='required, max 18 letters';
+    let condition_5='required, max 22 letters';
+
+    let condition_short = "too short ";
+    let condition_long = "too long ";
+    let condition_email = 'email incorrect ';
+    let condition_one_num = ' one number';
+    let condition_one_cap = ' one capital';
+    let condition_pwd_incorret = 'passwords dont match ';
+
+    let second_pswd_name = "password2"
+
+    div_username_info.innerText = condition_1;
+    div_password_info.innerText= condition_2;
+    div_password2_info.innerText= condition_2;
+    div_first_name_info.innerText=condition_4;
+    div_last_name_info.innerText= condition_4;
+    div_email_info.innerText= condition_5;
 
     div_username.addEventListener('focus',clean_msg);
     div_password.addEventListener('focus',clean_msg);
@@ -28,84 +42,103 @@ let div_email_info= document.getElementById('div_email_info');
     div_last_name.addEventListener('focus',clean_msg);
     div_email.addEventListener('focus',clean_msg);
 
+    div_username.addEventListener('keyup',validate_username);
+    div_password.addEventListener('keyup',validate_password);
+    div_password2.addEventListener('keyup',validate_password);
+    div_email.addEventListener('keyup',validate_email);
+    div_first_name.addEventListener('keyup',validate_name);
+    div_last_name.addEventListener('keyup',validate_name);
 
-    // div_password.addEventListener('keyup',validate_password);
-    // div_password2.addEventListener('keyup',validate_password);
-    // input_email.addEventListener('keyup',validate_email);  //
-    // input_first_name.addEventListener('keyup',validate_name);
-    // input_last_name.addEventListener('keyup',validate_name);
+    div_username.addEventListener('focusout',validate_username);
+    div_password.addEventListener('focusout',validate_password);
+    div_password2.addEventListener('focusout',validate_password);
+    div_email.addEventListener('focusout',validate_email);
+    div_first_name.addEventListener('focusout',validate_name);
+    div_last_name.addEventListener('focusout',validate_name);
+
+
 
     function validate_name(){
-        var element = this.value;
-        var error_msg = [];
+        let element = this.value;
+        let error_msg = [];
         if (!validate_len_min_ok(element, 3)) {
-            error_msg.push("too short ")
+            error_msg.push()
         }
-
-        var error_field = document.getElementById('passwordHelp_'+this.name);
+        if (!validate_len_min_ok(element, 0)) {
+            error_msg.push(condition_4)
+        }
+        let error_field = document.getElementById('div_'+this.name+'_info');
         error_field.innerText=error_msg.join(',')
     }
 
 
+    function validate_username(){
+        let element = this.value;
+        let error_msg = [];
+        if (!validate_len_min_ok(element, 3)) {
+            error_msg.push(condition_short)
+        }
+        if (!validate_len_min_ok(element, 0)) {
+            error_msg.push(condition_1)
+        }
+        let error_field = document.getElementById('div_'+this.name+'_info');
+        error_field.innerText=error_msg.join(',')
+    }
 
     function clean_msg(){
-        var error_msg = document.getElementById('div_'+this.name+'_info');
+        let error_msg = document.getElementById('div_'+this.name+'_info');
         error_msg.innerText=''
     }
 
     function validate_email() {
-        var element = this.value;
-        var error_msg = [];
+        let element = this.value;
+        let error_msg = [];
         if (this.value !==""){
             if (!validate_mail_sign(element) ||(!validate_dot_sign(element))){
-                error_msg.push('email incorrect ')
+                error_msg.push(condition_email)
             }
             if (!validate_len_min_ok(element, 6)) {
-                error_msg.push("too short ")
+                error_msg.push(condition_short)
             }
         }
-        var error_field = document.getElementById('passwordHelp_'+this.name);
+        let error_field = document.getElementById('div_'+this.name+'_info');
         error_field.innerText=error_msg.join(',')
     }
 
     function validate_password() {
         //require at least one: number, capital letter, more then 6 sign, less then 20
-        var element = this.value;
-        var error_msg = [];
+        let element = this.value;
+        let error_msg = [];
         if (this.value !== "") {
 
             if (!validate_len_min_ok(element, 6)) {
-                error_msg.push(" too short")
+                error_msg.push(condition_short)
             }
             if (!validate_len_max_ok(element, 20)) {
-                error_msg.push(' too long')
+                error_msg.push(condition_long)
             }
             if (!validate_contain_numbers(element, 1)) {
-                error_msg.push(" one number")
+                error_msg.push(condition_one_num)
             }
             if (!validate_capital_numbers(element, 1)) {
-                error_msg.push(' one capital')
+                error_msg.push(condition_one_cap)
             }
         }
 
-        if (this.name === "input_password2") {
-            if (input_pwd1.value.length >= 6 && this.value.length >= 6) {
-                if (input_pwd1.value !== this.value) {
-                    error_msg.push('passwords dont match ')
+        if (this.name === second_pswd_name) {
+            if (div_password.value.length >= 6 && this.value.length >= 6) {
+                if (div_password.value !== this.value) {
+                    error_msg.push(condition_pwd_incorret)
                 }
             }
         }
-        console.log(error_msg);
-        var error_field = document.getElementById('passwordHelp_' + this.name);
-        error_field.innerText = error_msg.join(',')
+        if (!validate_len_min_ok(element, 0)) {
+            error_msg.push(condition_2)
+        }
+        let error_field = document.getElementById('div_'+this.name+'_info');
+        error_field.innerText = error_msg.join(',') 
 
     }
-
-        if (this.name == "input_password"){
-            var error_field = document.getElementById('passwordHelp_'+this.name);
-            error_field.innerText=error_msg.join(',')
-        }
-
 
 
     function validate_len_min_ok(element, min_length){
@@ -158,16 +191,5 @@ let div_email_info= document.getElementById('div_email_info');
         return /[0-9]{9}/.test(element)
     }
 
-    function validate_mobile(){
-    var element = this.value;
-    var error_msg = [];
-    if (this.value !== ""){
-        if (!validate_mobile_numbers(element)){
-            error_msg.push('mobile number incorrect ')
-        }
-    }
-    var error_field = document.getElementById('passwordHelp_'+this.name);
-    error_field.innerText=error_msg.join(',')
-    }
 
 });

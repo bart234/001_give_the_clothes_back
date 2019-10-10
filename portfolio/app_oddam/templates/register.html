@@ -20,14 +20,14 @@
                       {%  if el.name == "password" or el.name == 'password2' %}
                         <td>
                             <div class="form-group">
-                              <input type="password" id="div_{{ el.name }}" name="{{el.name}}" />
+                              <input type="password" id="div_{{ el.name }}" name="{{el.name}}" required/>
                             </div>
                         </td>
                         <td id="div_{{ el.name }}_info" ></td>
                       {% else %}
                         <td>
                             <div class="form-group">
-                              <input type="text" id="div_{{ el.name }}" name="{{el.name}}" />
+                              <input type="text" id="div_{{ el.name }}" name="{{el.name}}" required/>
                             </div>
                         </td>
                         <td id="div_{{ el.name }}_info"></td>
