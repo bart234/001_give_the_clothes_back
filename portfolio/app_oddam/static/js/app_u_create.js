@@ -136,7 +136,7 @@ let div_email_info= document.getElementById('div_email_info');
             error_msg.push(condition_2)
         }
         let error_field = document.getElementById('div_'+this.name+'_info');
-        error_field.innerText = error_msg.join(',') 
+        error_field.innerText = error_msg.join(',')
 
     }
 

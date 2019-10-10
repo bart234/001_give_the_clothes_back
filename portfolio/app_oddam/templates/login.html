@@ -11,18 +11,31 @@
     <section class="login-page">
       <h2>Zaloguj się</h2>
       <form action="" method="post">
-          {% for el in f %}
-              {%  if el.name == "password" %}
-                <div class="form-group">
-                  <input type="password" name="{{el.name}}" placeholder="{{el.label}}" />
-                </div>
-              {% else %}
-                <div class="form-group">
-                  <input type="text" name="{{el.name}}" placeholder="{{el.label}}" />
-                </div>
-              {% endif %}
-          {% endfor %}
-        {% csrf_token %}
+        <table>
+            {% for el in f %}
+                {%  if el.name == "password" %}
+                    <tr>
+                        <td>{{el.label}}:</td>
+                        <td>
+                            <div class="form-group">
+                                <input type="password" name="{{el.name}}"  />
+                            </div>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td>{{el.label}}:</td>
+                        <td>
+                            <div class="form-group">
+                                <input type="text" name="{{el.name}}"  />
+                            </div>
+                        </td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+            {% csrf_token %}
+        </table>
+
         <div class="form-group form-group--buttons">
           <a href="/register" class="btn btn--without-border">Załóż konto</a>
           <a href="#" class="btn btn--without-border">Przypomnij hasło</a>

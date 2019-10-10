@@ -5,10 +5,21 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from app_oddam.form import FormCreateUser, FormLoginUser
 from app_oddam.site_set import FUNDACJA, ORGANIZACJA_PZ, ZBIORKA_L, INST_NUMBERS
+from django.core.mail import send_mail
 from django.core.paginator import Paginator
 
 # Create your views here.
 from django.views import View
+
+
+class SendMail(View):
+    def get(self, request):
+        send_mail("test 1 2 3 ",
+                  "mail content",
+                  'antoni.macierewicz@amorki.pl',
+                  ['jediv@nixemail.net'],
+                  fail_silently=False)
+        return HttpResponse("Mail sended")
 
 
 class LandingPage(View):
@@ -111,20 +122,46 @@ class Register(View):
         if form.is_valid():
             username = form.cleaned_data['username']
             pwd = form.cleaned_data['password']
+            pwd2 = form.cleaned_data['password2']
             fn = form.cleaned_data['first_name']
             ln = form.cleaned_data['last_name']
             mail = form.cleaned_data['email']
+            msg = []
 
-            new_user = User(username=username,
-                            first_name=fn,
-                            last_name=ln,
-                            email=mail)
-            new_user.set_password(pwd)
-            new_user.save()
-            messages.success(request, 'Konto zostalo utworzone')
-            return redirect("landing_page")
+            if User.objects.filter(email=mail).count() != 0:
+                msg.append('Email in use')
+            if User.objects.filter(username=username).count() != 0:
+                msg.append('Login in use')
+            if pwd != pwd2:
+                msg.append('Password dont match')
+            if len(pwd) < 6 or len(pwd2) < 6:
+                msg.append('Password is too short')
+            num_count = sum(1 if a.isdigit() else 0 for a in pwd)
+            if num_count < 1:
+                msg.append('Password require one number')
+            cap_count = sum(1 if a.isupper() else 0 for a in pwd)
+            if cap_count < 1:
+                msg.append('Password require one capital')
+            if len(msg) > 0:
+                messages.warning(request, ','.join(msg))
+                return redirect('register_page')
+
+            try:
+                new_user = User(username=username,
+                                first_name=fn,
+                                last_name=ln,
+                                email=mail)
+                new_user.set_password(pwd)
+                new_user.save()
+                messages.success(request, 'Konto zostalo utworzone')
+                return redirect("landing_page")
+
+            except:
+                messages.warning(request, 'Formularz zostal blednie wypelniony')
+                return redirect('register_page')
+
         else:
-            messages.success(request, 'Wystapil blad, sprobuj jeszcze raz')
+            messages.success(request, 'Formularz zostal blednie wypelniony')
             return redirect("register_page")
 
 
@@ -171,5 +208,3 @@ class UserEdit(View):
         else:
             messages.error(request, 'Bledne haslo')
             return redirect("user_edit")
-
-
