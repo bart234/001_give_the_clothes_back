@@ -7,10 +7,11 @@
 
 {% block body %}
     </header>
-
     <section class="login-page">
-        <h2>Profile {{ user.username }}</h2>
-        <table>
+      <h2>Profile {{ user.username }}</h2>
+
+       <form action="" method="post">
+       <table>
             <tr>
                 <td>Login:</td>
                 <td>
@@ -23,7 +24,7 @@
                 <td>Imie:</td>
                 <td>
                     <div class="form-group">
-                       <input type="text" name="{{ user.first_name }}" placeholder="{{ user.first_name }}" disabled/>
+                       <input type="text" id="fn" name="first_name" placeholder="{{ user.first_name }}"disabled/>
                     </div>
                 </td>
             </tr>
@@ -31,7 +32,7 @@
                 <td>Nazwisko:</td>
                 <td>
                     <div class="form-group">
-                        <input type="text" name="{{ user.last_name }}" placeholder="{{ user.last_name }}" disabled/>
+                        <input type="text" id="ln" name="last_name" placeholder="{{ user.last_name }}" disabled/>
                     </div>
                 </td>
             </tr>
@@ -39,7 +40,7 @@
                 <td>Email:</td>
                 <td>
                     <div class="form-group">
-                        <input type="text" name="{{ user.email }}" placeholder="{{ user.email }}" disabled/>
+                        <input type="text" id="mail" name="email" placeholder="{{ user.email }}" disabled/>
                     </div>
                 </td>
             </tr>
@@ -59,39 +60,105 @@
                 </div>
                 </td>
             </tr>
+
+            <tr>
+                <td><a href="" class="btn btn--without-border">Wyjdz</a></td>
+                <td><a href="/edituser" class="btn btn--without-border">Modyfikuj</a></td>
+            </tr>
         </table>
-        <a href="/edituser" class="btn btn--without-border">Edytuj</a>
+
+
+
+
+        {% csrf_token %}
+
+      </form>
     </section>
 
-    <section class="login-page">
-        <h2>Przekazane dary</h2>
-        <form action="" method="post">
-        {% csrf_token %}
-            <table>
-                   <tr>
-                    <td>Lp.</td>
-                    <td>Data odbioru </td>
-                    <td>Worki (szt.) </td>
-                    <td>Instytucja</td>
-                    <td>Czy odebrano</td>
-                    <td>Potwierdz odbior</td>
-                </tr>
-            {% for el in don_list %}
-                <tr>
-                    <td>{{ forloop.counter }}.</td>
-                    <td>{{ el.pick_up_date }} </td>
-                    <td>{{el.quantity}} </td>
-                    <td>{{el.institution.name}}</td>
-                    <td>{% if el.is_taken  %}  odebrano {% else %} nie odebrano{% endif %}</td>
-                    <td>{% if not el.is_taken  %}
-                        <button type="submit" name="inst_id" value="{{ el.id }}">
-                            Oznacz jako zabrany
-                        </button>
-                        {% endif %}
-                    </td>
-                </tr>
-            {% endfor %}
-            </table>
-        </form>
-    </section>
+{#    <section class="login-page">#}
+{#        <h2>Profile {{ user.username }}</h2>#}
+{#        <table>#}
+{#            <tr>#}
+{#                <td>Login:</td>#}
+{#                <td>#}
+{#                    <div class="form-group">#}
+{#                       <input type="text" name="{{ user.username }}" placeholder="{{ user.username }}" disabled/>#}
+{#                    </div>#}
+{#                </td>#}
+{#            </tr>#}
+{#            <tr>#}
+{#                <td>Imie:</td>#}
+{#                <td>#}
+{#                    <div class="form-group">#}
+{#                       <input type="text" name="{{ user.first_name }}" placeholder="{{ user.first_name }}" disabled/>#}
+{#                    </div>#}
+{#                </td>#}
+{#            </tr>#}
+{#            <tr>#}
+{#                <td>Nazwisko:</td>#}
+{#                <td>#}
+{#                    <div class="form-group">#}
+{#                        <input type="text" name="{{ user.last_name }}" placeholder="{{ user.last_name }}" disabled/>#}
+{#                    </div>#}
+{#                </td>#}
+{#            </tr>#}
+{#            <tr>#}
+{#                <td>Email:</td>#}
+{#                <td>#}
+{#                    <div class="form-group">#}
+{#                        <input type="text" name="{{ user.email }}" placeholder="{{ user.email }}" disabled/>#}
+{#                    </div>#}
+{#                </td>#}
+{#            </tr>#}
+{#            <tr>#}
+{#                <td>Ostatni login:</td>#}
+{#                <td>#}
+{#                    <div class="form-group">#}
+{#                        <input type="text" name="{{ user.last_login }}" placeholder="{{ user.last_login }}" disabled/>#}
+{#                    </div>#}
+{#                </td>#}
+{#            </tr>#}
+{#            <tr>#}
+{#                <td>Data dolaczenia:</td>#}
+{#                <td>#}
+{#                   <div class="form-group">#}
+{#                   <input type="text" name="{{ user.date_joined }}" placeholder="{{ user.date_joined }}" disabled/>#}
+{#                </div>#}
+{#                </td>#}
+{#            </tr>#}
+{#        </table>#}
+{#        <a href="/edituser" class="btn btn--without-border">Edytuj</a>#}
+{#    </section>#}
+{##}
+{#    <section class="login-page">#}
+{#        <h2>Przekazane dary</h2>#}
+{#        <form action="" method="post">#}
+{#        {% csrf_token %}#}
+{#            <table>#}
+{#                   <tr>#}
+{#                    <td>Lp.</td>#}
+{#                    <td>Data odbioru </td>#}
+{#                    <td>Worki (szt.) </td>#}
+{#                    <td>Instytucja</td>#}
+{#                    <td>Czy odebrano</td>#}
+{#                    <td>Potwierdz odbior</td>#}
+{#                </tr>#}
+{#            {% for el in don_list %}#}
+{#                <tr>#}
+{#                    <td>{{ forloop.counter }}.</td>#}
+{#                    <td>{{ el.pick_up_date }} </td>#}
+{#                    <td>{{el.quantity}} </td>#}
+{#                    <td>{{el.institution.name}}</td>#}
+{#                    <td>{% if el.is_taken  %}  odebrano {% else %} nie odebrano{% endif %}</td>#}
+{#                    <td>{% if not el.is_taken  %}#}
+{#                        <button type="submit" name="inst_id" value="{{ el.id }}">#}
+{#                            Oznacz jako zabrany#}
+{#                        </button>#}
+{#                        {% endif %}#}
+{#                    </td>#}
+{#                </tr>#}
+{#            {% endfor %}#}
+{#            </table>#}
+{#        </form>#}
+{#    </section>#}
 {% endblock body %}

@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from app_oddam.form import FormCreateUser, FormLoginUser
-from app_oddam.site_set import FUNDACJA, ORGANIZACJA_PZ, ZBIORKA_L, INST_NUMBERS
+from app_oddam.site_set import FUNDACJA, ORGANIZACJA_PZ, ZBIORKA_L, INST_NUMBERS, OUR_MAIL
 from django.core.mail import send_mail
 from django.core.paginator import Paginator
 
@@ -12,11 +12,12 @@ from django.core.paginator import Paginator
 from django.views import View
 
 
+
 class SendMail(View):
     def get(self, request):
         send_mail("test 1 2 3 ",
-                  "mail content",
-                  'antoni.macierewicz@amorki.pl',
+                      "mail content",
+                      OUR_MAIL,
                   ['jediv@nixemail.net'],
                   fail_silently=False)
         return HttpResponse("Mail sended")
