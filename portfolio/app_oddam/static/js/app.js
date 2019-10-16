@@ -15,12 +15,17 @@ document.addEventListener("DOMContentLoaded", function() {
     let show_fund = document.getElementById('show_fund');
     let show_org = document.getElementById('show_org');
     let show_coll = document.getElementById('show_coll');
+
+
+   //region institution buttons
     let div_fund = document.getElementById('div_fundation');
-    // let div_fund_btn = document.getElementById('div_fundation_btn');
     let div_org = document.getElementById('div_org');
-    // let div_org_btn = document.getElementById('div_org_btn');
     let div_coll = document.getElementById('div_coll');
+
+    // let div_fund_btn = document.getElementById('div_fundation_btn');
+    // let div_org_btn = document.getElementById('div_org_btn');
     // let div_coll_btn = document.getElementById('div_coll_btn');
+
 
     if (typeof (show_fund) !== 'undefined' && show_fund != null){
       show_fund.addEventListener("click", show_only_fund);
@@ -55,22 +60,69 @@ document.addEventListener("DOMContentLoaded", function() {
       // div_org_btn.hidden = true;
       // div_coll_btn.hidden = false;
     }
+  //endregion
 
-    if (typeof (sort_trigg) !== 'undefined' && sort_trigg != null){
+
+  //region events
+  if (typeof (sort_trigg) !== 'undefined' && sort_trigg != null){
       sort_trigg.addEventListener("click",sort_function);
       btn_cat_reveal.addEventListener("click",reveal_inst);
       summary_step.addEventListener("click",set_summary);
     }
 
+  //endregion
+
+
+  //region to check if at least one chcekbox is checked
+  for (let a= 0;a<cat_group.length;a++){
+    cat_group[a].addEventListener('change',let_to_step_2)
+  }
+  var counter = 0;
+
+  function let_to_step_2() {
+    if (this.checked) {
+      counter++;
+      on_off_to_step_2()
+    } else {
+      counter--;
+      on_off_to_step_2()
+    }
+  }
+
+  function on_off_to_step_2(){
+    if (counter >0){
+      sort_trigg.disabled = false
+    }else{
+      sort_trigg.disabled = true
+    }
+  }
+  //endregion
+
+  //region to check if  institution is checked
+  let to_step_4 = document.querySelector('.to_step_4');
+  let radio_coll = document.getElementsByName("inst_id");
+    for (let a= 0;a<radio_coll.length;a++){
+    radio_coll[a].addEventListener('change',let_to_step_4)
+  }
+
+    function let_to_step_4(){
+      for (let i =0; i<radio_coll.length;i++){
+        if (radio_coll[i].checked){
+           to_step_4.disabled = false
+        }
+      }
+    }
+  //endregion
 
     function set_summary() {
       s_content.innerText =  s_bags_in.value + " worki zawierajacych "+ checked_list;
-      let radio_coll = document.getElementsByName("inst_id");
+      radio_coll = document.getElementsByName("inst_id");
       for (let i =0; i<radio_coll.length;i++){
         if (radio_coll[i].checked){
            s_inst_out.innerText = radio_coll[i].value;
         }
       }
+
       let in_adress = document.getElementById("address");
       let in_city = document.getElementById("city");
       let in_postcode = document.getElementById("postcode");
@@ -99,7 +151,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function reveal_inst(){
       for (let c = 0; c< inst_group.length;c++){
-          inst_group[c].hidden = false
+          inst_group[c].hidden = false;
+          checked_list = []
           }
       }
 
@@ -108,7 +161,7 @@ document.addEventListener("DOMContentLoaded", function() {
       //take array with categories from checkboxes
         for (let i = 0; i< cat_group.length;i++){
           if (cat_group[i].checked){
-            checked_list.push(cat_group[i].name)
+            checked_list.push(cat_group[i].name);
           }
         }
 
@@ -140,8 +193,6 @@ document.addEventListener("DOMContentLoaded", function() {
         }else{
           information_div.hidden = true
         }
-
-
 
         }
 
