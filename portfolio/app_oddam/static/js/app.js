@@ -114,6 +114,73 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   //endregion
 
+    // variable to  take data form
+    let in_adress = document.getElementById("address");
+    let in_city = document.getElementById("city");
+    let in_postcode = document.getElementById("postcode");
+    let in_phone = document.getElementById("phone");
+    let in_data = document.getElementById("data");
+    let in_time = document.getElementById("time");
+    let in_more_info = document.getElementById("more_info");
+
+    //variable to put data to summary
+    let out_adress = document.querySelector(".out_address");
+    let out_city = document.querySelector(".out_city");
+    let out_postcode = document.querySelector(".out_postcode");
+    let out_phone = document.querySelector(".out_phone");
+    let out_data = document.querySelector(".out_data");
+    let out_time = document.querySelector(".out_time");
+    let out_more_info = document.querySelector(".out_more_info");
+
+    //variable to put info about validatiors
+    // let street_info = document.querySelector(".street-info");
+    // let city_info = document.querySelector(".city-info");
+    // let zip_info = document.querySelector(".zip-info");
+    // let phone_info = document.querySelector(".phone-info");
+    // let data_info = document.querySelector(".data-info");
+    // let time_info = document.querySelector(".time-info");
+    //validators on courier form
+
+
+    in_adress.addEventListener('focus',clean_msg);
+    in_adress.addEventListener('keyup',validate_string);
+    // street_info.addEventListener('focusout',validate_username);
+
+
+    function clean_msg(){
+        let error_msg2 = document.getElementById(this.name+'-info');
+        error_msg2.innerText=''
+    }
+
+    function validate_string(){
+        console.log('dfsfsdf');
+        // let element = this.value;
+        // let error_msg = [];
+        // if (!validate_len_min_ok(element, 3)) {
+        //     error_msg.push()
+        // }
+        // if (!validate_len_min_ok(element, 0)) {
+        //     error_msg.push('field is too short')
+        // }
+        // let error_field = document.getElementById(this.name+'-info');
+        // error_field.innerText=error_msg.join(',')
+    }
+
+    function validate_len_min_ok(element, min_length){
+        if (element.length <= min_length){
+            return false
+        }else{
+            return true
+        }
+    }
+
+    function validate_len_max_ok(element,max_length) {
+        if (element.length >= max_length){
+            return false
+        }else{
+            return true
+        }
+    }
     function set_summary() {
       s_content.innerText =  s_bags_in.value + " worki zawierajacych "+ checked_list;
       radio_coll = document.getElementsByName("inst_id");
@@ -123,22 +190,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
       }
 
-      let in_adress = document.getElementById("address");
-      let in_city = document.getElementById("city");
-      let in_postcode = document.getElementById("postcode");
-      let in_phone = document.getElementById("phone");
-      let in_data = document.getElementById("data");
-      let in_time = document.getElementById("time");
-      let in_more_info = document.getElementById("more_info");
 
-
-      let out_adress = document.querySelector(".out_address");
-      let out_city = document.querySelector(".out_city");
-      let out_postcode = document.querySelector(".out_postcode");
-      let out_phone = document.querySelector(".out_phone");
-      let out_data = document.querySelector(".out_data");
-      let out_time = document.querySelector(".out_time");
-      let out_more_info = document.querySelector(".out_more_info");
 
       out_adress.innerText= in_adress.value;
       out_city.innerText=in_city.value;
@@ -148,6 +200,8 @@ document.addEventListener("DOMContentLoaded", function() {
       out_time.innerText=in_time.value;
       out_more_info.innerText=in_more_info.value;
     }
+
+
 
     function reveal_inst(){
       for (let c = 0; c< inst_group.length;c++){
