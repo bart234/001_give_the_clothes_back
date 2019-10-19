@@ -132,20 +132,27 @@ document.addEventListener("DOMContentLoaded", function() {
     let out_time = document.querySelector(".out_time");
     let out_more_info = document.querySelector(".out_more_info");
 
-    //variable to put info about validatiors
-    // let street_info = document.querySelector(".street-info");
-    // let city_info = document.querySelector(".city-info");
-    // let zip_info = document.querySelector(".zip-info");
-    // let phone_info = document.querySelector(".phone-info");
-    // let data_info = document.querySelector(".data-info");
-    // let time_info = document.querySelector(".time-info");
-    //validators on courier form
-
 
     in_adress.addEventListener('focus',clean_msg);
     in_adress.addEventListener('keyup',validate_string);
-    // street_info.addEventListener('focusout',validate_username);
+    in_city.addEventListener('focus',clean_msg);
+    in_city.addEventListener('keyup',validate_string);
+    in_postcode.addEventListener('focus',clean_msg);
+    in_postcode.addEventListener('keyup',zip_code_check);
 
+
+    function zip_code_check(){
+
+        let element = this.value;
+        let error_msg = [];
+        var patt = new RegExp("[0-9]{2}-[0-9]{3}");
+        var res = patt.test(element);
+        if (!(res)) {
+            error_msg.push('Popraw kod pocztowy do  formatu xx-xxx');
+        }
+        let error_field = document.getElementById(this.name+'-info');
+        error_field.innerText=error_msg.join(',')
+    }
 
     function clean_msg(){
         let error_msg2 = document.getElementById(this.name+'-info');
@@ -153,17 +160,17 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function validate_string(){
-        console.log('dfsfsdf');
-        // let element = this.value;
-        // let error_msg = [];
-        // if (!validate_len_min_ok(element, 3)) {
-        //     error_msg.push()
-        // }
-        // if (!validate_len_min_ok(element, 0)) {
-        //     error_msg.push('field is too short')
-        // }
-        // let error_field = document.getElementById(this.name+'-info');
-        // error_field.innerText=error_msg.join(',')
+        let element = this.value;
+        let error_msg = [];
+        console.log(this.value);
+
+        if (!validate_len_min_ok(element, 3)) {
+            error_msg.push('Wprowadzony tekst jest za krotki');
+        }
+
+        let error_field = document.getElementById(this.name+'-info');
+        error_field.innerText=error_msg.join(',')
+
     }
 
     function validate_len_min_ok(element, min_length){
@@ -174,13 +181,6 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    function validate_len_max_ok(element,max_length) {
-        if (element.length >= max_length){
-            return false
-        }else{
-            return true
-        }
-    }
     function set_summary() {
       s_content.innerText =  s_bags_in.value + " worki zawierajacych "+ checked_list;
       radio_coll = document.getElementsByName("inst_id");
