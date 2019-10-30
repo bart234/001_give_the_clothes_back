@@ -12,13 +12,12 @@ from django.core.paginator import Paginator
 from django.views import View
 
 
-
 class SendMail(View):
     def get(self, request):
         send_mail("test 1 2 3 ",
-                      "mail content",
-                      OUR_MAIL,
-                  ['jediv@nixemail.net'],
+                      "sdfdasfdasfsdf",
+                      'bart234_bart@wp.pl',
+                  ['bart234_bart@wp.pl'],
                   fail_silently=False)
         return HttpResponse("Mail sended")
 
@@ -33,7 +32,6 @@ class LandingPage(View):
         # inst_pagi = Paginator(fundation, 2)
         # page = request.GET.get('page')
         # inst_pag_result = inst_pagi.get_page(page)
-
         org = Institution.objects.filter(type="{}".format(ORGANIZACJA_PZ)).order_by('?')[:INST_NUMBERS]
         lcolection = Institution.objects.filter(type="{}".format(ZBIORKA_L)).order_by('?')[:INST_NUMBERS]
 
@@ -43,6 +41,7 @@ class LandingPage(View):
                                               # 'fundation': inst_pag_result,
                                               'org': org,
                                               'lcolection': lcolection})
+
 
 
 class AddDonation(View):
@@ -57,7 +56,7 @@ class AddDonation(View):
         address = request.POST['address']
         phone = request.POST['phone']
         city = request.POST['city']
-        zip_code = request.POST['zip_code']
+        zip_code = request.POST['postcode']
         pick_up_data = request.POST['pick_up_data']
         pick_up_time = request.POST['pick_up_time']
         pick_up_comm = request.POST['pick_up_comm']
@@ -196,9 +195,9 @@ class UserEdit(View):
         if u.check_password(old_psswd):
             if u.email != new_mail and new_mail != "":
                 u.email = new_mail
-            if u.first_name != new_fn and new_fn == "":
+            if u.first_name != new_fn and new_fn != "":
                 u.first_name = new_fn
-            if u.last_name != new_ln:
+            if u.last_name != new_ln and new_ln != "":
                 u.last_name = new_ln
             if new_pswd == new_pswd_rep and new_pswd != "":
                 u.set_password(new_pswd)

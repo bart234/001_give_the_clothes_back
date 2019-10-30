@@ -7,7 +7,7 @@ ZBIORKA_L = 'zbiorka lokalna'
 INST_NUMBERS = 3
 
 #mail conf
-OUR_MAIL = ''
-OUR_MAIL_PASSWORD = ''
+OUR_MAIL = 'bart234_bart@wp.pl'
+OUR_MAIL_PASSWORD = 'bart234testmail'
 
 

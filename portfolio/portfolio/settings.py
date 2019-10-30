@@ -132,7 +132,7 @@ STATICFILES_DIRS = [
 STATIC_URL = '/static/'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.poczta.onet.pl '
+EMAIL_HOST = 'ssmtp.wp.pl'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 465
 EMAIL_HOST_USER = OUR_MAIL

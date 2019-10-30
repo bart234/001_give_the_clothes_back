@@ -68,8 +68,32 @@ document.addEventListener("DOMContentLoaded", function() {
       sort_trigg.addEventListener("click",sort_function);
       btn_cat_reveal.addEventListener("click",reveal_inst);
       summary_step.addEventListener("click",set_summary);
+      summary_step.addEventListener("mouseover",enable_next_step);
     }
 
+    function enable_next_step(){
+      let x =0;
+      if((in_adress.value == "") == false && (document.getElementById("address-info").innerText == "") == true){
+        x +=1}
+      if((in_city.value == "") == false && (document.getElementById("city-info").innerText == "") == true){
+        x +=1}
+      if((in_postcode.value == "") == false && (document.getElementById("postcode-info").innerText == "") == true){
+        x +=1}
+      if((in_phone.value == "") == false && (document.getElementById("phone-info").innerText == "") == true){
+        x +=1}
+      if((data.value == "") == false && (document.getElementById("pick_up_data-info").innerText == "") == true){
+        x +=1}
+      if((time.value == "") == false && (document.getElementById("pick_up_time-info").innerText == "") == true){
+        x +=1}
+
+
+      console.log(x);
+      if (x=6){
+          summary_step.disabled = false
+      }else {
+          summary_step.disabled = true
+      }
+    }
   //endregion
 
 
@@ -139,7 +163,43 @@ document.addEventListener("DOMContentLoaded", function() {
     in_city.addEventListener('keyup',validate_string);
     in_postcode.addEventListener('focus',clean_msg);
     in_postcode.addEventListener('keyup',zip_code_check);
+    in_phone.addEventListener('focus',clean_msg);
+    in_phone.addEventListener('keyup',mobile);
 
+
+
+
+
+    // in_data.addEventListener('focus',clean_msg);
+    // in_data.addEventListener('blur',check_data);
+    //
+    // function check_data(){
+    //     let error_msg = [];
+    //     if (Date.now >this.value){
+    //         error_msg.push('sdf');
+    //     }else{
+    //         error_msg.push('Data odbioru musi byc wieksza od dnia jutrzejszego');
+    //     };
+    //     let error_field = document.getElementById(this.name+'-info');
+    //     error_field.innerText=error_msg.join(',')
+    // }
+
+   
+
+    function mobile(){
+        let element = this.value;
+        let error_msg = [];
+        if ( !(validate_mobile_numbers(element))){
+             error_msg.push('Numer telefonu jest za krotki');
+        }else{
+        }
+        let error_field = document.getElementById(this.name+'-info');
+        error_field.innerText=error_msg.join(',')
+
+    }
+    function validate_mobile_numbers(element){
+        return /[0-9]{9}/.test(element)
+    }
 
     function zip_code_check(){
 
@@ -149,6 +209,7 @@ document.addEventListener("DOMContentLoaded", function() {
         var res = patt.test(element);
         if (!(res)) {
             error_msg.push('Popraw kod pocztowy do  formatu xx-xxx');
+        }else{
         }
         let error_field = document.getElementById(this.name+'-info');
         error_field.innerText=error_msg.join(',')
@@ -162,10 +223,10 @@ document.addEventListener("DOMContentLoaded", function() {
     function validate_string(){
         let element = this.value;
         let error_msg = [];
-        console.log(this.value);
 
         if (!validate_len_min_ok(element, 3)) {
-            error_msg.push('Wprowadzony tekst jest za krotki');
+            error_msg.push('`Wprowadzony` tekst jest za krotki');
+        }else {
         }
 
         let error_field = document.getElementById(this.name+'-info');
