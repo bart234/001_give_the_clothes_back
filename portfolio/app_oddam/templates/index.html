@@ -97,11 +97,11 @@
         </li>
         {% endfor %}
         </ul>
-      </div>
-{#        <ul class="help--buttons" id="div_fundation_btn" >#}
-{#            <p><a href="/full_list/f"  class="btn btn--without-border" id="show_coll">Pokaz wszystkie fundacje</a></p>#}
-{#        </ul>#}
-
+        <!-- <div></div>
+        <div class="help--buttons" id="div_fundation_btn" > -->
+            <p><a href="/full_list/f"  class="btn " id="show_coll">Pokaz wszystkie fundacje</a></p>
+        <!-- </div> -->
+      </div>  
 {#                      Pagination#}
 {#        {% if fundation.has_other_pages %}#}
 {##}
@@ -148,11 +148,11 @@
         </li>
         {% endfor %}
         </ul>
+      
+       <!-- <ul class="help--buttons" id="div_org_btn" hidden> -->
+            <p><a href="/full_list/org"  class="btn" id="show_coll">Pokaz wszystkie organizacje</a></p>
+       <!-- </ul> -->
       </div>
-{#        <ul class="help--buttons" id="div_org_btn" hidden>#}
-{#            <p><a href="/full_list/org"  class="btn btn--without-border" id="show_coll">Pokaz wszystkie organizacje</a></p>#}
-{#        </ul>#}
-
 
        <!-- SLIDE 3 -->
       <div class="help--slides" data-id="1" id="div_coll">
@@ -173,10 +173,11 @@
         </li>
         {% endfor %}
         </ul>
+        <!-- <ul class="help--buttons" id="div_coll_btn" hidden> -->
+            <p><a href="/full_list/zl" class="btn" id="show_coll">Pokaz wszystkie zbiorki lokalne</a></p>
+        <!-- </ul> -->
       </div>
-{#        <ul class="help--buttons" id="div_coll_btn" hidden>#}
-{#            <p><a href="/full_list/zl" class="btn btn--without-border" id="show_coll">Pokaz wszystkie zbiorki lokalne</a></p>#}
-{#        </ul>#}
+
     </section>
 
     <script src="{% static 'js/app.js'%}"></script>
