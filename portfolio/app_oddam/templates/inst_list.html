@@ -21,8 +21,23 @@
     <section id="help" class="help">
     <div class="help--slides active" data-id="1">
 
-        {#Pagination#}
-        {{coll}}
+                <!--    work normal collle  -->
+        <ul class="help--slides-items" >
+          {%  for el in coll %}
+            <li>
+                <div class="col">
+                  <div class="title">{{ el.name }}</div>
+                  <div class="subtitle">{{ el.description }}</div>
+                </div>
+                <div class="col">
+                    <div class="text">{%for cat in el.categories.all %}{{ cat.name }},{% endfor %}</div>
+                </div>
+            </li>
+          {% endfor %}
+        </ul>
+        
+        <!-- {#Pagination#} -->
+
         {% if coll.has_other_pages %}
         
             <ul class="help--slides-pagination" >
@@ -48,20 +63,7 @@
             </ul>
         {% endif %}
 
-        <!-- work normal collle 
-        <ul class="help--slides-items" >
-          {%  for el in coll %}
-            <li>
-                <div class="col">
-                  <div class="title">{{ el.name }}</div>
-                  <div class="subtitle">{{ el.description }}</div>
-                </div>
-                <div class="col">
-                    <div class="text">{%for cat in el.categories.all %}{{ cat.name }},{% endfor %}</div>
-                </div>
-            </li>
-          {% endfor %}
-        </ul> -->
+
 
     </div>  
 

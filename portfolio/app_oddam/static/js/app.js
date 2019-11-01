@@ -67,33 +67,34 @@ document.addEventListener("DOMContentLoaded", function() {
   if (typeof (sort_trigg) !== 'undefined' && sort_trigg != null){
       sort_trigg.addEventListener("click",sort_function);
       btn_cat_reveal.addEventListener("click",reveal_inst);
-      summary_step.addEventListener("click",set_summary);
       summary_step.addEventListener("mouseover",enable_next_step);
+      summary_step.addEventListener("click",set_summary);
+      
     }
 
-    function enable_next_step(){
-      let x =0;
-      if((in_adress.value == "") == false && (document.getElementById("address-info").innerText == "") == true){
-        x +=1}
-      if((in_city.value == "") == false && (document.getElementById("city-info").innerText == "") == true){
-        x +=1}
-      if((in_postcode.value == "") == false && (document.getElementById("postcode-info").innerText == "") == true){
-        x +=1}
-      if((in_phone.value == "") == false && (document.getElementById("phone-info").innerText == "") == true){
-        x +=1}
-      if((data.value == "") == false && (document.getElementById("pick_up_data-info").innerText == "") == true){
-        x +=1}
-      if((time.value == "") == false && (document.getElementById("pick_up_time-info").innerText == "") == true){
-        x +=1}
+  function enable_next_step(){
+    let x =0;
+    if((in_adress.value == "") == false && (document.getElementById("address-info").innerText == "") == true){
+      x +=1}
+    if((in_city.value == "") == false && (document.getElementById("city-info").innerText == "") == true){
+      x +=1}
+    if((in_postcode.value == "") == false && (document.getElementById("postcode-info").innerText == "") == true){
+      x +=1}
+    if((in_phone.value == "") == false && (document.getElementById("phone-info").innerText == "") == true){
+      x +=1}
+    if((data.value == "") == false && (document.getElementById("pick_up_data-info").innerText == "") == true){
+      x +=1}
+    if((time.value == "") == false && (document.getElementById("pick_up_time-info").innerText == "") == true){
+      x +=1}
 
 
-      console.log(x);
-      if (x=6){
-          summary_step.disabled = false
-      }else {
-          summary_step.disabled = true
-      }
+    console.log(x);
+    if (x=6){
+        summary_step.disabled = false
+    }else {
+        summary_step.disabled = true
     }
+  }
   //endregion
 
 

@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from app_oddam.form import FormCreateUser, FormLoginUser
-from app_oddam.site_set import FUNDACJA, ORGANIZACJA_PZ, ZBIORKA_L, INST_NUMBERS, OUR_MAIL
+from app_oddam.site_set import FUNDACJA, ORGANIZACJA_PZ, ZBIORKA_L, INST_NUMBERS, OUR_MAIL, INST_PAGIN_NUMBER
 from django.core.mail import send_mail
 from django.core.paginator import Paginator
 
@@ -26,15 +26,14 @@ class InstitutionLists(View):
                 #                               'lcolection': lcolection})
         if tab == 'fd':         
             coll1 = Institution.objects.filter(type="{}".format(FUNDACJA)).all()
-            pagi_inst = Paginator(coll1, 2)
-            page = request.GET.get('page')
-            coll = pagi_inst.get_page(page)
-
         elif tab == 'og':
-            coll = Institution.objects.filter(type="{}".format(ORGANIZACJA_PZ)).all()  
+            coll1 = Institution.objects.filter(type="{}".format(ORGANIZACJA_PZ)).all()  
         elif tab == 'zl':
-            coll = Institution.objects.filter(type="{}".format(ZBIORKA_L)).all()
+            coll1 = Institution.objects.filter(type="{}".format(ZBIORKA_L)).all()
 
+        pagi_inst = Paginator(coll1, INST_PAGIN_NUMBER)
+        page = request.GET.get('page')
+        coll = pagi_inst.get_page(page)
         return render(request, 'inst_list.html',{'coll':coll, 't':tab})
 
 
