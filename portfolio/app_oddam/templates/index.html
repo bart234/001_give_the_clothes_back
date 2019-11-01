@@ -85,73 +85,40 @@
         <p>W naszej bazie znajdziesz listę zweryfikowanych Fundacji, z którymi współpracujemy. Możesz sprawdzić czym się zajmują, komu pomagają i czego potrzebują.</p>
 
         <ul class="help--slides-items" >
-        {%  for el in fundation %}
-        <li>
-            <div class="col">
-              <div class="title">{{ el.name }}</div>
-              <div class="subtitle">{{ el.description }}</div>
-            </div>
-            <div class="col">
-                <div class="text">{%for cat in el.categories.all %}{{ cat.name }},{% endfor %}</div>
-            </div>
-        </li>
-        {% endfor %}
+          {%  for el in fundation %}
+            <li>
+                <div class="col">
+                  <div class="title">{{ el.name }}</div>
+                  <div class="subtitle">{{ el.description }}</div>
+                </div>
+                <div class="col">
+                    <div class="text">{%for cat in el.categories.all %}{{ cat.name }},{% endfor %}</div>
+                </div>
+            </li>
+          {% endfor %}
         </ul>
-        <!-- <div></div>
-        <div class="help--buttons" id="div_fundation_btn" > -->
-            <p><a href="/full_list/f"  class="btn " id="show_coll">Pokaz wszystkie fundacje</a></p>
-        <!-- </div> -->
+        <p><a href="/full_list/fd"  class="btn " id="show_coll">Pokaz wszystkie fundacje</a></p>
       </div>  
-{#                      Pagination#}
-{#        {% if fundation.has_other_pages %}#}
-{##}
-{#        <ul class="help--slides-pagination" >#}
-{#            {% if fundation.has_previous %}#}
-{#                <li><a href="?page={{fundation.previous_page_number }}">&laquo;</a></li>#}
-{#            {% else %}#}
-{#                <li class="disabled"><span>&laquo;</span></li>#}
-{#            {% endif %}#}
-{##}
-{#            {% for i in fundation.paginator.page_range %}#}
-{#                {% if fundation.number == i %}#}
-{#                <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>#}
-{#                {% else %}#}
-{#                <li><a href="?page={{ i }}">{{ i }}</a></li>#}
-{#                {% endif %}#}
-{#            {% endfor %}#}
-{##}
-{#            {% if fundation.has_next %}#}
-{#              <li><a href="?page={{ fundation.next_page_number }}">&raquo;</a></li>#}
-{#            {% else %}#}
-{#              <li class="disabled"><span>&raquo;</span></li>#}
-{#            {% endif %}#}
-{##}
-{#         </ul>#}
-{#        {% endif %}#}
 
-
-       <!-- SLIDE 2 -->
+      <!-- SLIDE 2 -->
       <div class="help--slides " data-id="1" id="div_org">
         <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Hic officiis mollitia dolor,
             neque aspernatur accusamus debitis. Ducimus, officia. Quia, sunt illum! Non iste placeat ab ipsum alias
               quos suscipit corporis!</p>
         <ul class="help--slides-items" >
-        {%  for el in org %}
-        <li>
-            <div class="col">
-              <div class="title">{{ el.name }}</div>
-              <div class="subtitle">{{ el.description }}</div>
-            </div>
-            <div class="col">
-                <div class="text">{% for cat in el.categories.all %}{{ cat.name }},{% endfor %}</div>
-            </div>
-        </li>
-        {% endfor %}
-        </ul>
-      
-       <!-- <ul class="help--buttons" id="div_org_btn" hidden> -->
-            <p><a href="/full_list/org"  class="btn" id="show_coll">Pokaz wszystkie organizacje</a></p>
-       <!-- </ul> -->
+          {%  for el in org %}
+            <li>
+                <div class="col">
+                  <div class="title">{{ el.name }}</div>
+                  <div class="subtitle">{{ el.description }}</div>
+                </div>
+                <div class="col">
+                    <div class="text">{% for cat in el.categories.all %}{{ cat.name }},{% endfor %}</div>
+                </div>
+            </li>
+          {% endfor %}
+        </ul>      
+        <p><a href="/full_list/og"  class="btn" id="show_coll">Pokaz wszystkie organizacje</a></p>
       </div>
 
        <!-- SLIDE 3 -->
@@ -161,21 +128,19 @@
               quos suscipit corporis!</p>
 
         <ul class="help--slides-items">
-        {%  for el in lcolection %}
-        <li>
-            <div class="col">
-              <div class="title">{{ el.name }}</div>
-              <div class="subtitle">{{ el.description }}</div>
-            </div>
-            <div class="col">
-                <div class="text">{% for cat in el.categories.all %}{{ cat.name }},{% endfor %}</div>
-            </div>
-        </li>
-        {% endfor %}
+          {%  for el in lcolection %}
+            <li>
+                <div class="col">
+                  <div class="title">{{ el.name }}</div>
+                  <div class="subtitle">{{ el.description }}</div>
+                </div>
+                <div class="col">
+                    <div class="text">{% for cat in el.categories.all %}{{ cat.name }},{% endfor %}</div>
+                </div>
+            </li>
+          {% endfor %}
         </ul>
-        <!-- <ul class="help--buttons" id="div_coll_btn" hidden> -->
-            <p><a href="/full_list/zl" class="btn" id="show_coll">Pokaz wszystkie zbiorki lokalne</a></p>
-        <!-- </ul> -->
+        <p><a href="/full_list/zl" class="btn" id="show_coll">Pokaz wszystkie zbiorki lokalne</a></p>
       </div>
 
     </section>

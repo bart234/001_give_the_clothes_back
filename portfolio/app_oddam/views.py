@@ -12,6 +12,32 @@ from django.core.paginator import Paginator
 from django.views import View
 
 
+class InstitutionLists(View):
+    def get(self,request,tab):
+        # fundation = Institution.objects.filter(type="fundacja").all()
+        # inst_pagi = Paginator(fundation, 2)
+        # page = request.GET.get('page')
+        # inst_pag_result = inst_pagi.get_page(page)
+                # return render(request, "index.html", {'bags': bags,
+                #                               'institution': institution,
+                #                               'fundation': fundation,
+                #                               # 'fundation': inst_pag_result,
+                #                               'org': org,
+                #                               'lcolection': lcolection})
+        if tab == 'fd':         
+            coll1 = Institution.objects.filter(type="{}".format(FUNDACJA)).all()
+            pagi_inst = Paginator(coll1, 2)
+            page = request.GET.get('page')
+            coll = pagi_inst.get_page(page)
+
+        elif tab == 'og':
+            coll = Institution.objects.filter(type="{}".format(ORGANIZACJA_PZ)).all()  
+        elif tab == 'zl':
+            coll = Institution.objects.filter(type="{}".format(ZBIORKA_L)).all()
+
+        return render(request, 'inst_list.html',{'coll':coll, 't':tab})
+
+
 class SendMail(View):
     def get(self, request):
         send_mail("test 1 2 3 ",
@@ -27,11 +53,6 @@ class LandingPage(View):
         bags = Donation.objects.filter(quantity__gt=0).count()
         institution = Institution.objects.filter(id__gt=0).count()
         fundation = Institution.objects.filter(type='{}'.format(FUNDACJA)).order_by('?')[:INST_NUMBERS]
-
-        # fundation = Institution.objects.filter(type="fundacja").all()
-        # inst_pagi = Paginator(fundation, 2)
-        # page = request.GET.get('page')
-        # inst_pag_result = inst_pagi.get_page(page)
         org = Institution.objects.filter(type="{}".format(ORGANIZACJA_PZ)).order_by('?')[:INST_NUMBERS]
         lcolection = Institution.objects.filter(type="{}".format(ZBIORKA_L)).order_by('?')[:INST_NUMBERS]
 
@@ -41,7 +62,6 @@ class LandingPage(View):
                                               # 'fundation': inst_pag_result,
                                               'org': org,
                                               'lcolection': lcolection})
-
 
 
 class AddDonation(View):

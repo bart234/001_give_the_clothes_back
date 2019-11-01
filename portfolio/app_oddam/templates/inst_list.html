@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head %}
+    <header>
+{% endblock head %}
+
+{% block body %}
+    </header>
+
+    <section class="login-page">
+        {% if t == 'fd'%}
+            <h2>Lista fundacji</h2>
+        {% elif t == 'og' %}
+            <h2>Lista organizacji pozarzadowych</h2>
+        {% elif t == 'zl' %}
+            <h2>Lista zbiorek lokalnych</h2>
+        {% endif%}
+    </section>
+
+    <section id="help" class="help">
+    <div class="help--slides active" data-id="1">
+
+        {#Pagination#}
+        {{coll}}
+        {% if coll.has_other_pages %}
+        
+            <ul class="help--slides-pagination" >
+                {% if coll.has_previous %}
+                    <li><a href="?page={{fundation.previous_page_number }}">&laquo;</a></li>
+                {% else %}
+                    <li class="disabled"><span>&laquo;</span></li>
+                {% endif %}
+
+                {% for i in coll.paginator.page_range %}
+                    {% if coll.number == i %}
+                    <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+                    {% else %}
+                    <li><a href="?page={{ i }}">{{ i }}</a></li>
+                    {% endif %}
+                {% endfor %}
+
+                {% if coll.has_next %}
+                    <li><a href="?page={{ coll.next_page_number }}">&raquo;</a></li>
+                {% else %}
+                    <li class="disabled"><span>&raquo;</span></li>
+                {% endif %}
+            </ul>
+        {% endif %}
+
+        <!-- work normal collle 
+        <ul class="help--slides-items" >
+          {%  for el in coll %}
+            <li>
+                <div class="col">
+                  <div class="title">{{ el.name }}</div>
+                  <div class="subtitle">{{ el.description }}</div>
+                </div>
+                <div class="col">
+                    <div class="text">{%for cat in el.categories.all %}{{ cat.name }},{% endfor %}</div>
+                </div>
+            </li>
+          {% endfor %}
+        </ul> -->
+
+    </div>  
+
+    <div class="form-group form-group--buttons">
+        <a href="/#help" class="btn btn--without-border">Wroc do strony glownej</a>
+    </div>
+
+    </section>
+
+{% endblock body %}

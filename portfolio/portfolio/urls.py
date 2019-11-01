@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, re_path
 from app_oddam.views import LandingPage, AddDonation, Login, Register, Logout, Confirm, UserSite, UserEdit, \
-    SendMail
+    SendMail, InstitutionLists
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -29,5 +29,6 @@ urlpatterns = [
     path('user/', UserSite.as_view(), name="user_site"),
     path('edituser/', UserEdit.as_view(), name="user_edit"),
     path('mail/', SendMail.as_view(), name="send_mail"),
-
+    re_path(r'full_list/(?P<tab>[a-z A-Z]{2})$', InstitutionLists.as_view(), name='inst_list'),
+    # re_path(r'user/reservations/(?P<login>[0-9 a-z A-Z \- _]*)$', ReservationViewsUserResList.as_view(),
 ]
